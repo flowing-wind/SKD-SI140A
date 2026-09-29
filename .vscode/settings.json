@@ -1,0 +1,4 @@
+{
+  "python.defaultInterpreterPath": "/home/fuuraiko/.local/bin/python",
+  "python-envs.defaultEnvManager": "ms-python.python:system"
+}

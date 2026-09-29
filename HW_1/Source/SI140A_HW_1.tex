@@ -1,0 +1,479 @@
+% !TeX TS-program = pdflatex
+
+
+\documentclass[a4paper]{article}
+
+% \usepackage[default]{fontsetup}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+\usepackage{enumerate}
+\usepackage{tikz}
+
+\usetikzlibrary{automata,positioning}
+
+%
+% Basic Document Settings
+%  
+
+\topmargin=-0.2in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.5in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass : \hmwkTitle}
+\rhead{\firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{
+    \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\newcommand*\circled[1]{\tikz[baseline=(char.base)]{
+		\node[shape=circle,draw,inner sep=2pt] (char) {#1};}}
+
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Problem \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Class
+%   - Due date
+%   - Name
+%   - Student ID
+
+\newcommand{\hmwkTitle}{Homework\ \#01}
+\newcommand{\hmwkClass}{Probability \& Statistics for EECS}
+\newcommand{\hmwkDueDate}{2024-10-6}
+\newcommand{\hmwkAuthorName}{}
+\newcommand{\hmwkAuthorID}{}
+
+
+%
+% Title Page
+%
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass:\\  \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at 18:00}\\
+	\vspace{4in}
+}
+
+\author{
+	Name: \textbf{\hmwkAuthorName} \\
+	Student ID: \hmwkAuthorID}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+% Alias for the Solution section header
+\newcommand{\solution}{\textbf{\large Solution}}
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\E}{\mathrm{E}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+
+\begin{document}
+
+
+% \maketitle
+% \thispagestyle{empty}
+% \pagebreak
+
+\date{
+Due on Sep. 29, 2026, 18:00 UTC+8}
+\title{SI 140A-01  Probability \& Statistics for EECS, Fall 2026 \\
+Homework 1}
+\maketitle
+Read all the instructions below carefully before you start working on the assignment, and before you make a submission.
+\begin{itemize}
+    \item You are required to write down all the major steps towards making your conclusions; otherwise you may obtain limited points of the problem.
+    \item Write your homework in English; otherwise you will get no points of this homework.
+    \item Any form of plagiarism will lead to $0$ point of this homework. 
+\end{itemize}
+\newpage
+
+\begin{homeworkProblem}[1]
+\textbf{(Story Proof)} Define $\left\{\begin{array}{l}n \\ k\end{array}\right\}$ as the number of ways to partition $\{1,2, \ldots, n\}$ into $k$ non-empty subsets, or the number of ways to have $n$ students split up into $k$ groups such that each group has at least one student. For example, $\left\{\begin{array}{l}4 \\ 2\end{array}\right\}=7$ because we have the following possibilities:
+$$
+\begin{tabular}{ll}
+$\bullet\{1\},\{2,3,4\}$ & $\bullet\{1,2\},\{3,4\}$ \\
+$\bullet\{2\},\{1,3,4\}$ & $\bullet\{1,3\},\{2,4\}$ \\
+$\bullet\{3\},\{1,2,4\}$ & $\bullet\{1,4\},\{2,3\}$ \\
+$\bullet\{4\},\{1,2,3\}$ &
+\end{tabular}
+$$
+Prove the following identities:\\
+(a)
+$$
+\left\{\begin{array}{c}
+n+1 \\
+k
+\end{array}\right\}=\left\{\begin{array}{c}
+n \\
+k-1
+\end{array}\right\}+k\left\{\begin{array}{l}
+n \\
+k
+\end{array}\right\} .
+$$
+Hint: I'm either in a group by myself or I'm not.\\
+(b)
+$$
+\sum_{j=k}^n\left(\begin{array}{l}
+n \\
+j
+\end{array}\right)\left\{\begin{array}{l}
+j \\
+k
+\end{array}\right\}=\left\{\begin{array}{l}
+n+1 \\
+k+1
+\end{array}\right\} .
+$$
+Hint: First decide how many people are not going to be in my group.
+\end{homeworkProblem}
+
+\newpage
+\begin{homeworkProblem}[2]
+A \textit{norepeatword} is a sequence of at least one (and possibly all) of the usual 26 letters a, b, c, .., z, with repetitions not allowed. For example, "course" is a norepeatword, but "statistics" is not. Order matters, e.g., "course" is not the same as "source". A norepeatword is chosen randomly, with all norepeatwords equally likely. Show that the probability that it uses all 26 letters is very close to $1 / e$.
+\end{homeworkProblem}
+
+
+
+%\newpage
+%\begin{homeworkProblem}[3]
+%Given $n \geq 2$ different numbers $\left(a_1, a_2, \ldots, a_n\right)$, a bootstrap sample is a sequence $\left(x_1, x_2, \ldots, x_n\right)$ formed from the $a_j$ 's by sampling with replacement with equal probabilities.  For example, if $n=2$ and $\left(a_1, a_2\right)=(3,1)$, then the possible bootstrap samples are $(3,3),(3,1),(1,3)$, and $(1,1)$.\\
+%(a) How many possible bootstrap samples are there for $\left(a_1, \ldots, a_n\right)$ ?\\
+%(b) How many possible bootstrap samples are there for $\left(a_1, \ldots, a_n\right)$, if order does not matter.\\ %(in the sense that it only matters how many times each $a_j$ was chosen, not the order in which they were chosen)?\\
+%(c) One random bootstrap sample is chosen (by sampling from $a_1, \ldots, a_n$ with replacement, as described above). Show that not all unordered bootstrap samples (in the sense of (b)) are equally likely. Find an unordered bootstrap sample $\mathbf{b}_1$ that is as likely as possible, and an unordered bootstrap sample $\mathbf{b}_2$ that is as unlikely as possible. Let $p_1$ be the probability of getting $\mathbf{b}_1$ and $p_2$ be the probability of getting $\mathbf{b}_2$ (so $p_i$ is the probability of getting the specific unordered bootstrap sample $\mathbf{b}_i$ ). What is $p_1 / p_2$ ? What is the ratio of the probability of getting an unordered bootstrap sample whose probability is $p_1$ to the probability of getting an unordered sample whose probability is $p_2$ ?
+
+%\end{homeworkProblem}
+
+% \newpage
+% \begin{homeworkProblem}[4]
+% \textbf{(Geometric Probability)} You get a stick and break it randomly into three pieces. What is the probability that you can make a triangle using such three pieces?
+% \end{homeworkProblem}
+
+
+\newpage
+\begin{homeworkProblem}[3]
+Given $n \geq 2$ numbers $\left(a_1, a_2, \ldots, a_n\right)$ with no repetitions, a bootstrap sample is a sequence $\left(x_1, x_2, \ldots, x_n\right)$ formed from the $a_j$ 's by sampling with replacement with equal probabilities. Bootstrap samples arise in a widely used statistical method known as the bootstrap. For example, if $n=2$ and $\left(a_1, a_2\right)=(3,1)$, then the possible bootstrap samples are $(3,3),(3,1),(1,3)$, and $(1,1)$.\\
+(a) How many possible bootstrap samples are there for $\left(a_1, \ldots, a_n\right)$ ?\\
+(b) How many possible bootstrap samples are there for $\left(a_1, \ldots, a_n\right)$, if order does not matter (in the sense that it only matters how many times each $a_j$ was chosen, not the order in which they were chosen)?\\
+(c) One random bootstrap sample is chosen (by sampling from $a_1, \ldots, a_n$ with replacement, as described above). Show that not all unordered bootstrap samples (in the sense of (b)) are equally likely. Find an unordered bootstrap sample $\mathbf{b}_1$ that is as likely as possible, and an unordered bootstrap sample $\mathbf{b}_2$ that is as unlikely as possible. Let $p_1$ be the probability of getting $\mathbf{b}_1$ and $p_2$ be the probability of getting $\mathbf{b}_2$ (so $p_i$ is the probability of getting the specific unordered bootstrap sample $\mathbf{b}_i$ ). What is $p_1 / p_2$ ? What is the ratio of the probability of getting an unordered bootstrap sample whose probability is $p_1$ to the probability of getting an unordered sample whose probability is $p_2$ ?
+
+\end{homeworkProblem}
+
+% \newpage
+% \begin{homeworkProblem}[4]
+% \textbf{(Geometric Probability)} You get a stick and break it randomly into three pieces. What is the probability that you can make a triangle using such three pieces?
+% \end{homeworkProblem}
+
+\newpage
+\begin{homeworkProblem}[4]
+In the birthday problem, we assumed that all 365 days of the year are equally likely (and excluded February 29). In reality, some days are slightly more likely as birthdays than others. For example, scientists have long struggled to understand why more babies are born 9 months after a holiday. Let $\mathbf{p}=\left(p_1, p_2, \ldots, p_{365}\right)$ be the vector of birthday probabilities, with $p_j$ the probability of being born on the $j$ th day of the year (February 29 is still excluded, with no offense intended to Leap Dayers). The $k$ th elementary symmetric polynomial in the variables $x_1, \ldots, x_n$ is defined by
+$$
+e_k\left(x_1, \ldots, x_n\right)=\sum_{1 \leq j_1<j_2<\cdots<j_k \leq n} x_{j_1} \ldots x_{j_k} .
+$$
+This just says to add up all of the $\left(\begin{array}{l}n \\ k\end{array}\right)$ terms we can get by choosing and multiplying $k$ of the variables. For example, $e_1\left(x_1, x_2, x_3\right)=x_1+x_2+x_3, e_2\left(x_1, x_2, x_3\right)=x_1 x_2+$ $x_1 x_3+x_2 x_3$, and $e_3\left(x_1, x_2, x_3\right)=x_1 x_2 x_3$ Now let $k \geq 2$ be the number of people.\\
+(a) Find a simple expression for the probability that there is at least one birthday match, in terms of $\mathbf{p}$ and an elementary symmetric polynomial.\\
+(b) Explain intuitively why it makes sense that $P$ (at least one birthday match) is minimized when $p_j=\frac{1}{365}$ for all $j$, by considering simple and extreme cases.\\
+(c) The famous arithmetic mean-geometric mean inequality says that for $x, y \geq 0$
+$$
+\frac{x+y}{2} \geq \sqrt{x y} .
+$$
+This inequality follows from adding $4 x y$ to both sides of $x^2-2 x y+y^2=(x-y)^2 \geq 0$ Define $\mathbf{r}=\left(r_1, \ldots, r_{365}\right)$ by $r_1=r_2=\left(p_1+p_2\right) / 2, r_j=p_j$ for $3 \leq j \leq 365$. Using the arithmetic mean-geometric mean bound and the fact, which you should verify, that
+$$
+e_k\left(x_1, \ldots, x_n\right)=x_1 x_2 e_{k-2}\left(x_3, \ldots, x_n\right)+\left(x_1+x_2\right) e_{k-1}\left(x_3, \ldots, x_n\right)+e_k\left(x_3, \ldots, x_n\right)
+$$
+show that
+
+\begin{center}
+    $P($ at least one birthday match $\mid \mathbf{p}) \geq P($ at least one birthday match $\mid \mathbf{r})$
+\end{center}
+
+% \vspace{8pt}
+with strict inequality if $\mathbf{p} \neq \mathbf{r}$, where the given $\mathbf{r}$ notation means that the birthday probabilities are given by $\mathbf{r}$. Using this, show that the value of $\mathbf{p}$ that minimizes the probability of at least one birthday match is given by $p_j=\frac{1}{365}$ for all $j$.
+
+\end{homeworkProblem}
+
+ 
+
+
+
+
+\end{document}
+
+
+
+% % !TeX TS-program = pdflatex
+
+
+% \documentclass[a4paper]{article}
+
+% % \usepackage[default]{fontsetup}
+
+% \usepackage{fancyhdr}
+% \usepackage{extramarks}
+% \usepackage{amsmath}
+% \usepackage{amsthm}
+% \usepackage{amsfonts}
+% \usepackage{tikz}
+% \usepackage[plain]{algorithm}
+% \usepackage{algpseudocode}
+% \usepackage{enumerate}
+% \usepackage{tikz}
+
+% \usetikzlibrary{automata,positioning}
+
+% %
+% % Basic Document Settings
+% %  
+
+% \topmargin=-0.2in
+% \evensidemargin=0in
+% \oddsidemargin=0in
+% \textwidth=6.5in
+% \textheight=9.5in
+% \headsep=0.25in
+
+% \linespread{1.1}
+
+% \pagestyle{fancy}
+% \lhead{\hmwkAuthorName}
+% \chead{\hmwkClass : \hmwkTitle}
+% \rhead{\firstxmark}
+% \lfoot{\lastxmark}
+% \cfoot{\thepage}
+
+% \renewcommand\headrulewidth{0.4pt}
+% \renewcommand\footrulewidth{0.4pt}
+
+% \setlength\parindent{0pt}
+
+% %
+% % Create Problem Sections
+% %
+
+% \newcommand{\enterProblemHeader}[1]{
+%     \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+%     \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+% }
+
+% \newcommand{\exitProblemHeader}[1]{
+%     \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+%     \stepcounter{#1}
+%     \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+% }
+
+% \newcommand*\circled[1]{\tikz[baseline=(char.base)]{
+% 		\node[shape=circle,draw,inner sep=2pt] (char) {#1};}}
+
+
+% \setcounter{secnumdepth}{0}
+% \newcounter{partCounter}
+% \newcounter{homeworkProblemCounter}
+% \setcounter{homeworkProblemCounter}{1}
+% \nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+% %
+% % Homework Problem Environment
+% %
+% % This environment takes an optional argument. When given, it will adjust the
+% % problem counter. This is useful for when the problems given for your
+% % assignment aren't sequential. See the last 3 problems of this template for an
+% % example.
+% %
+
+% \newenvironment{homeworkProblem}[1][-1]{
+%     \ifnum#1>0
+%         \setcounter{homeworkProblemCounter}{#1}
+%     \fi
+%     \section{Problem \arabic{homeworkProblemCounter}}
+%     \setcounter{partCounter}{1}
+%     \enterProblemHeader{homeworkProblemCounter}
+% }{
+%     \exitProblemHeader{homeworkProblemCounter}
+% }
+
+% %
+% % Homework Details
+% %   - Title
+% %   - Class
+% %   - Due date
+% %   - Name
+% %   - Student ID
+
+% \newcommand{\hmwkTitle}{Homework\ \#13}
+% \newcommand{\hmwkClass}{Probability \& Statistics for EECS}
+% \newcommand{\hmwkDueDate}{2025-01-07}
+% \newcommand{\hmwkAuthorName}{}
+% \newcommand{\hmwkAuthorID}{}
+
+
+% %
+% % Title Page
+% %
+
+% \title{
+%     \vspace{2in}
+%     \textmd{\textbf{\hmwkClass:\\  \hmwkTitle}}\\
+%     \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at 11:59}\\
+% 	\vspace{4in}
+% }
+
+% \author{
+% 	Name: \textbf{\hmwkAuthorName} \\
+% 	Student ID: \hmwkAuthorID}
+% \date{}
+
+% \renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+% %
+% % Various Helper Commands
+% %
+
+% % Useful for algorithms
+% \newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+% % For derivatives
+% \newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+% % For partial derivatives
+% \newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+% % Integral dx
+% \newcommand{\dx}{\mathrm{d}x}
+% % Alias for the Solution section header
+% \newcommand{\solution}{\textbf{\large Solution}}
+% % Probability commands: Expectation, Variance, Covariance, Bias
+% \newcommand{\E}{\mathrm{E}}
+% \newcommand{\Var}{\mathrm{Var}}
+% \newcommand{\Cov}{\mathrm{Cov}}
+% \newcommand{\Bias}{\mathrm{Bias}}
+
+% \begin{document}
+
+
+% % \maketitle
+% % \thispagestyle{empty}
+% % \pagebreak
+
+% \date{
+% Due on Jan. 7, 2025, 11:59 UTC+8}
+% \title{SI 140A-02  Probability \& Statistics for EECS, Fall 2024 \\
+% Homework 13}
+% \maketitle
+% Read all the instructions below carefully before you start working on the assignment, and before you make a submission.
+% \begin{itemize}
+%     \item You are required to write down all the major steps towards making your conclusions; otherwise you may obtain limited points of the problem.
+%     \item Write your homework in English; otherwise you will get no points of this homework.
+%     \item Any form of plagiarism will lead to $0$ point of this homework. 
+% \end{itemize}
+% \newpage
+
+% \begin{homeworkProblem}[1]
+% Given a Markov chain with state-transition diagram shown as follows:
+% \begin{center}
+%     \includegraphics[width=0.3\textwidth]{hw13_1.png}
+% \end{center}
+% (a)
+% Is this chain irreducible?\\[2px]
+% (b)
+% Is this chain aperiodic?\\[2px]
+% (c)
+% Find the stationary distribution of this chain.\\[2px]
+% (d)
+% Is this chain reversible?
+% \end{homeworkProblem}
+
+% \newpage
+% \begin{homeworkProblem}[2]
+% Given a Markov chain with state-transition diagram shown as follows:
+% \begin{center}
+%     \includegraphics[width=0.3\textwidth]{hw13_1.png}
+% \end{center}
+% (a) Find \(P(X_{9}=3 \mid X_{8}=1)\) and \(P(X_{8}=2 \mid X_{7}=3)\).\\[2px]
+% (b) If \(P(X_{0}=3) = \frac{1}{2}\), find \(P(X_{0}=3, X_{1}=1, X_{2}=2, X_{4}=3)\).\\[2px]
+% (c) Find \(E(X_{8} \mid X_{6}=2)\).\\[2px]
+% (d) Find \(\operatorname{Var}(X_{7} \mid X_{5}=3)\).\\[2px]
+% \end{homeworkProblem}
+
+
+
+% \newpage
+% \begin{homeworkProblem}[3]
+% There are two urns with a total of \(2N\) distinguishable balls. Initially, the first urn has \(N\) white balls and the second urn has \(N\) black balls. At each stage, we pick a ball at random from each urn and interchange them. Let \(X_{n}\) be the number of black balls in the first urn at time \(n\). This is a Markov chain on the state space \(\{0,1,\ldots,N\}\).\\[4px]
+% (a) Find the transition probabilities of the chain.\\[2px]
+% (b) Find the stationary distribution of the chain.\\[2px]
+
+% \end{homeworkProblem}
+
+
+% \end{document}
