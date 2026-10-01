@@ -1,0 +1,417 @@
+% !TeX program = xelatex
+% Compile with XeLaTeX in Overleaf.
+
+
+\documentclass[a4paper]{article}
+\usepackage{xeCJK}
+\setCJKmainfont{FandolSong-Regular}
+\usepackage{needspace}
+
+% \usepackage[default]{fontsetup}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+\usepackage{enumerate}
+\usepackage{tikz}
+
+\usetikzlibrary{automata,positioning}
+
+%
+% Basic Document Settings
+%  
+
+\topmargin=-0.2in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.5in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{}
+\chead{\hmwkClass : \hmwkTitle}
+\rhead{\firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{
+    \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\newcommand*\circled[1]{\tikz[baseline=(char.base)]{
+		\node[shape=circle,draw,inner sep=2pt] (char) {#1};}}
+
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Problem \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Class
+%   - Due date
+%   - Name
+%   - Student ID
+
+\newcommand{\hmwkTitle}{Homework\ \#02}
+\newcommand{\hmwkClass}{Probability \& Statistics for EECS}
+\newcommand{\hmwkDueDate}{2024-10-6}
+\newcommand{\hmwkAuthorName}{杨涵}
+\newcommand{\hmwkAuthorID}{2025531064}
+
+
+%
+% Title Page
+%
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass:\\  \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at 18:00}\\
+	\vspace{4in}
+}
+
+\author{
+	Name: \textbf{\hmwkAuthorName} \\
+	Student ID: \hmwkAuthorID}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+% Alias for the Solution section header
+\newcommand{\solution}{\par\addvspace{\baselineskip}\Needspace{4\baselineskip}\noindent\textbf{\large Solution}\par\nobreak\smallskip}
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\E}{\mathrm{E}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+
+\begin{document}
+
+
+% \maketitle
+% \thispagestyle{empty}
+% \pagebreak
+
+\date{
+Due on Oct. 7, 2026, 23:59 UTC+8}
+\title{SI 140A-01  Probability \& Statistics for EECS, Fall 2026 \\
+Homework 2}
+\maketitle
+Read all the instructions below carefully before you start working on the assignment, and before you make a submission.
+\begin{itemize}
+    \item You are required to write down all the major steps towards making your conclusions; otherwise you may obtain limited points of the problem.
+    \item Write your homework in English; otherwise you will get no points of this homework.
+    \item Any form of plagiarism will lead to $0$ point of this homework. 
+\end{itemize}
+\newpage
+
+\begin{homeworkProblem}[1]
+Show that for any events $A$ and $B$,
+    \[
+    P(A) + P(B) - 1 \le P(A \cap B) \le P(A \cup B) \le P(A) + P(B).
+    \]
+    For each of these three inequalities, give a simple criterion for when the inequality is actually an equality (e.g., give a simple condition such that $P(A \cap B) = P(A \cup B)$ if and only if the condition holds).
+
+\solution
+According to the inclusion--exclusion formula,
+\[
+P(A\cup B)=P(A)+P(B)-P(A\cap B).
+\]
+\begin{enumerate}[(i)]
+\item Since $P(A\cup B)\leq 1$,
+\[
+P(A)+P(B)-P(A\cap B)\leq 1
+\quad\Longrightarrow\quad
+P(A)+P(B)-1\leq P(A\cap B).
+\]
+Equality holds if and only if $P(A\cup B)=1$.
+
+\item Since $A\cap B\subseteq A\cup B$,
+\[
+P(A\cap B)\leq P(A\cup B).
+\]
+Equality holds if and only if $P(A\triangle B)=0$.
+
+\item Since $P(A\cap B)\geq 0$,
+\[
+P(A)+P(B)-P(A\cup B)\geq 0
+\quad\Longrightarrow\quad
+P(A\cup B)\leq P(A)+P(B).
+\]
+Equality holds if and only if $P(A\cap B)=0$.
+\end{enumerate}
+
+\end{homeworkProblem}
+
+\newpage
+\begin{homeworkProblem}[2]
+Let $A$ and $B$ be events. The \emph{symmetric difference} $A \triangle B$ is defined to be the set of all elements that are in $A$ or $B$ but not both. In logic and engineering, this event is also called the $\text{XOR}$ (\emph{exclusive or}) of $A$ and $B$. Show that
+    \[
+    P(A \triangle B) = P(A) + P(B) - 2P(A \cap B),
+    \]
+    directly using the axioms of probability.
+
+\solution
+By definition,
+\[
+A\triangle B=(A\setminus B)\cup(B\setminus A).
+\]
+The events $A\setminus B$ and $B\setminus A$ are disjoint, so
+\[
+P(A\triangle B)=P(A\setminus B)+P(B\setminus A).
+\]
+As
+\[
+A=(A\setminus B)\cup(A\cap B),
+\qquad B=(B\setminus A)\cup(A\cap B),
+\]
+where each union is disjoint, we have
+\[
+P(A\setminus B)=P(A)-P(A\cap B),
+\qquad P(B\setminus A)=P(B)-P(A\cap B).
+\]
+Therefore,
+\begin{align*}
+P(A\triangle B)
+&=P(A)-P(A\cap B)+P(B)-P(A\cap B)\\
+&=P(A)+P(B)-2P(A\cap B).
+\end{align*}
+
+\end{homeworkProblem}
+
+
+
+%\newpage
+%\begin{homeworkProblem}[3]
+%Given $n \geq 2$ different numbers $\left(a_1, a_2, \ldots, a_n\right)$, a bootstrap sample is a sequence $\left(x_1, x_2, \ldots, x_n\right)$ formed from the $a_j$ 's by sampling with replacement with equal probabilities.  For example, if $n=2$ and $\left(a_1, a_2\right)=(3,1)$, then the possible bootstrap samples are $(3,3),(3,1),(1,3)$, and $(1,1)$.\\
+%(a) How many possible bootstrap samples are there for $\left(a_1, \ldots, a_n\right)$ ?\\
+%(b) How many possible bootstrap samples are there for $\left(a_1, \ldots, a_n\right)$, if order does not matter.\\ %(in the sense that it only matters how many times each $a_j$ was chosen, not the order in which they were chosen)?\\
+%(c) One random bootstrap sample is chosen (by sampling from $a_1, \ldots, a_n$ with replacement, as described above). Show that not all unordered bootstrap samples (in the sense of (b)) are equally likely. Find an unordered bootstrap sample $\mathbf{b}_1$ that is as likely as possible, and an unordered bootstrap sample $\mathbf{b}_2$ that is as unlikely as possible. Let $p_1$ be the probability of getting $\mathbf{b}_1$ and $p_2$ be the probability of getting $\mathbf{b}_2$ (so $p_i$ is the probability of getting the specific unordered bootstrap sample $\mathbf{b}_i$ ). What is $p_1 / p_2$ ? What is the ratio of the probability of getting an unordered bootstrap sample whose probability is $p_1$ to the probability of getting an unordered sample whose probability is $p_2$ ?
+
+%\end{homeworkProblem}
+
+% \newpage
+% \begin{homeworkProblem}[4]
+% \textbf{(Geometric Probability)} You get a stick and break it randomly into three pieces. What is the probability that you can make a triangle using such three pieces?
+% \end{homeworkProblem}
+
+
+\newpage
+\begin{homeworkProblem}[3]
+Events $A$ and $B$ are \emph{independent} if $P(A \cap B) = P(A)P(B)$.
+    \begin{enumerate}
+        \item Give an example of independent events $A$ and $B$ in a finite sample space $S$ (with neither equal to $\emptyset$ or $S$).
+        \item Consider the experiment of picking a random point in the rectangle
+        \[
+        R = \{(x, y) : 0 < x < 1, 0 < y < 1\},
+        \]
+        where the probability of the point being in any particular region contained within $R$ is the area of that region. Let $A_1$ and $B_1$ be rectangles contained within $R$, with areas not equal to 0 or 1. Let $A$ be the event that the random point is in $A_1$, and $B$ be the event that the random point is in $B_1$. Give a geometric description of when it is true that $A$ and $B$ are independent. Also, give an example where they are independent and another example where they are not independent.
+        \item Show that if $A$ and $B$ are independent, then
+        \[
+        P(A \cup B) = P(A) + P(B) - P(A)P(B) = 1 - P(A^c)P(B^c).
+        \]
+    \end{enumerate}
+
+
+\solution
+\begin{enumerate}[(i)]
+\item Assume $S=\{1,2,3,4\}$, $A=\{1,2\}$, and $B=\{2,4\}$. Then
+\[
+P(A)=\frac12,\qquad P(B)=\frac12,\qquad A\cap B=\{2\},
+\]
+and
+\[
+P(A\cap B)=\frac14=P(A)P(B).
+\]
+Thus $A$ and $B$ are independent.
+
+\item Let $S_{A_1}$, $S_{B_1}$, and $S_{A_1\cap B_1}$ denote the corresponding areas. Then
+\[
+P(A)=S_{A_1},\qquad P(B)=S_{B_1},\qquad
+P(A\cap B)=S_{A_1\cap B_1}.
+\]
+The events $A$ and $B$ are independent when
+\[
+S_{A_1}S_{B_1}=S_{A_1\cap B_1}.
+\]
+Geometrically, the overlap of $A_1$ and $B_1$ should have an area equal to the product of their individual areas.
+
+\medskip
+\Needspace{9\baselineskip}
+For an independent example, let
+\[
+A_1=\{(x,y):0<x<\tfrac12,\ 0<y<1\},\qquad
+B_1=\{(x,y):0<x<1,\ 0<y<\tfrac12\}.
+\]
+Then
+\[
+P(A)=\frac12,\qquad P(B)=\frac12,\qquad
+P(A\cap B)=\frac14=P(A)P(B).
+\]
+
+\medskip
+\Needspace{8\baselineskip}
+For a non-independent example, let
+\[
+A_1=B_1=\{(x,y):0<x<\tfrac12,\ 0<y<1\}.
+\]
+Then
+\[
+P(A)=P(B)=\frac12,\qquad
+P(A\cap B)=\frac12\neq P(A)P(B).
+\]
+
+\item Since $A$ and $B$ are independent, $P(A\cap B)=P(A)P(B)$. Thus
+\[
+P(A\cup B)=P(A)+P(B)-P(A\cap B)
+=P(A)+P(B)-P(A)P(B).
+\]
+Also,
+\[
+P(A^c)P(B^c)=P((A\cup B)^c)=1-P(A\cup B),
+\]
+so
+\[
+P(A\cup B)=1-P(A^c)P(B^c).
+\]
+\end{enumerate}
+
+\end{homeworkProblem}
+
+% \newpage
+% \begin{homeworkProblem}[4]
+% \textbf{(Geometric Probability)} You get a stick and break it randomly into three pieces. What is the probability that you can make a triangle using such three pieces?
+% \end{homeworkProblem}
+
+\newpage
+\begin{homeworkProblem}[4]
+Consider four nonstandard dice (the \emph{Efron dice}), whose sides are labeled as follows (the 6 sides on each die are equally likely).
+    \begin{itemize}
+        \item[] A: $4, 4, 4, 4, 0, 0$
+        \item[] B: $3, 3, 3, 3, 3, 3$
+        \item[] C: $6, 6, 2, 2, 2, 2$
+        \item[] D: $5, 5, 5, 1, 1, 1$
+    \end{itemize}
+    These four dice are each rolled once. Let $A$ be the result for die $A$, $B$ be the result for die $B$, etc.
+    \begin{enumerate}
+        \item Find $P(A > B)$, $P(B > C)$, $P(C > D)$, and $P(D > A)$.
+        \item Is the event $A > B$ independent of the event $B > C$? Is the event $B > C$ independent of the event $C > D$? Explain.
+    \end{enumerate}
+
+\solution
+\begin{enumerate}[(i)]
+\item The event $A>B$ occurs when $A=4$, so
+\[
+P(A>B)=\frac46=\frac23.
+\]
+The event $B>C$ occurs when $C=2$, so
+\[
+P(B>C)=\frac46=\frac23.
+\]
+The event $C>D$ occurs when $C=6$, or when $C=2$ and $D=1$. These cases have probabilities
+\[
+p_1=\frac26=\frac13,\qquad
+p_2=\frac23\cdot\frac12=\frac13.
+\]
+Hence
+\[
+P(C>D)=\frac13+\frac13=\frac23.
+\]
+The event $D>A$ occurs when $D=5$, or when $D=1$ and $A=0$. These cases have probabilities
+\[
+p_1=\frac12,\qquad p_2=\frac12\cdot\frac13=\frac16.
+\]
+Hence
+\[
+P(D>A)=\frac12+\frac16=\frac23.
+\]
+
+\item We have $P(A>B)=P(B>C)=\frac23$. The event
+$\{A>B\}\cap\{B>C\}$ occurs when $A=4$, $B=3$, and $C=2$. Thus
+\[
+P(\{A>B\}\cap\{B>C\})
+=\frac23\cdot1\cdot\frac23=\frac49
+=P(A>B)P(B>C).
+\]
+Therefore, the events $A>B$ and $B>C$ are independent.
+
+\medskip
+\Needspace{8\baselineskip}
+We also have $P(B>C)=P(C>D)=\frac23$. The event
+$\{B>C\}\cap\{C>D\}$ occurs when $B=3$, $C=2$, and $D=1$. Thus
+\[
+P(\{B>C\}\cap\{C>D\})
+=1\cdot\frac23\cdot\frac12=\frac13
+\neq P(B>C)P(C>D).
+\]
+Therefore, the events $B>C$ and $C>D$ are not independent, because $B>C$ implies $C=2$, which changes the probability that $C>D$.
+\end{enumerate}
+
+\end{homeworkProblem}
+
+ 
+
+
+
+
+\end{document}

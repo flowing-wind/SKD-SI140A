@@ -1,0 +1,447 @@
+% !TeX TS-program = pdflatex
+
+
+\documentclass[a4paper]{article}
+
+% \usepackage[default]{fontsetup}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+\usepackage{enumerate}
+\usepackage{tikz}
+
+\usetikzlibrary{automata,positioning}
+
+%
+% Basic Document Settings
+%  
+
+\topmargin=-0.2in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.5in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass : \hmwkTitle}
+\rhead{\firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{
+    \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\newcommand*\circled[1]{\tikz[baseline=(char.base)]{
+		\node[shape=circle,draw,inner sep=2pt] (char) {#1};}}
+
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Problem \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Class
+%   - Due date
+%   - Name
+%   - Student ID
+
+\newcommand{\hmwkTitle}{Homework\ \#02}
+\newcommand{\hmwkClass}{Probability \& Statistics for EECS}
+\newcommand{\hmwkDueDate}{2024-10-6}
+\newcommand{\hmwkAuthorName}{}
+\newcommand{\hmwkAuthorID}{}
+
+
+%
+% Title Page
+%
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass:\\  \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at 18:00}\\
+	\vspace{4in}
+}
+
+\author{
+	Name: \textbf{\hmwkAuthorName} \\
+	Student ID: \hmwkAuthorID}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+% Alias for the Solution section header
+\newcommand{\solution}{\textbf{\large Solution}}
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\E}{\mathrm{E}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+
+\begin{document}
+
+
+% \maketitle
+% \thispagestyle{empty}
+% \pagebreak
+
+\date{
+Due on Oct. 7, 2026, 23:59 UTC+8}
+\title{SI 140A-01  Probability \& Statistics for EECS, Fall 2026 \\
+Homework 2}
+\maketitle
+Read all the instructions below carefully before you start working on the assignment, and before you make a submission.
+\begin{itemize}
+    \item You are required to write down all the major steps towards making your conclusions; otherwise you may obtain limited points of the problem.
+    \item Write your homework in English; otherwise you will get no points of this homework.
+    \item Any form of plagiarism will lead to $0$ point of this homework. 
+\end{itemize}
+\newpage
+
+\begin{homeworkProblem}[1]
+Show that for any events $A$ and $B$,
+    \[
+    P(A) + P(B) - 1 \le P(A \cap B) \le P(A \cup B) \le P(A) + P(B).
+    \]
+    For each of these three inequalities, give a simple criterion for when the inequality is actually an equality (e.g., give a simple condition such that $P(A \cap B) = P(A \cup B)$ if and only if the condition holds).
+\end{homeworkProblem}
+
+\newpage
+\begin{homeworkProblem}[2]
+Let $A$ and $B$ be events. The \emph{symmetric difference} $A \triangle B$ is defined to be the set of all elements that are in $A$ or $B$ but not both. In logic and engineering, this event is also called the $\text{XOR}$ (\emph{exclusive or}) of $A$ and $B$. Show that
+    \[
+    P(A \triangle B) = P(A) + P(B) - 2P(A \cap B),
+    \]
+    directly using the axioms of probability.
+\end{homeworkProblem}
+
+
+
+%\newpage
+%\begin{homeworkProblem}[3]
+%Given $n \geq 2$ different numbers $\left(a_1, a_2, \ldots, a_n\right)$, a bootstrap sample is a sequence $\left(x_1, x_2, \ldots, x_n\right)$ formed from the $a_j$ 's by sampling with replacement with equal probabilities.  For example, if $n=2$ and $\left(a_1, a_2\right)=(3,1)$, then the possible bootstrap samples are $(3,3),(3,1),(1,3)$, and $(1,1)$.\\
+%(a) How many possible bootstrap samples are there for $\left(a_1, \ldots, a_n\right)$ ?\\
+%(b) How many possible bootstrap samples are there for $\left(a_1, \ldots, a_n\right)$, if order does not matter.\\ %(in the sense that it only matters how many times each $a_j$ was chosen, not the order in which they were chosen)?\\
+%(c) One random bootstrap sample is chosen (by sampling from $a_1, \ldots, a_n$ with replacement, as described above). Show that not all unordered bootstrap samples (in the sense of (b)) are equally likely. Find an unordered bootstrap sample $\mathbf{b}_1$ that is as likely as possible, and an unordered bootstrap sample $\mathbf{b}_2$ that is as unlikely as possible. Let $p_1$ be the probability of getting $\mathbf{b}_1$ and $p_2$ be the probability of getting $\mathbf{b}_2$ (so $p_i$ is the probability of getting the specific unordered bootstrap sample $\mathbf{b}_i$ ). What is $p_1 / p_2$ ? What is the ratio of the probability of getting an unordered bootstrap sample whose probability is $p_1$ to the probability of getting an unordered sample whose probability is $p_2$ ?
+
+%\end{homeworkProblem}
+
+% \newpage
+% \begin{homeworkProblem}[4]
+% \textbf{(Geometric Probability)} You get a stick and break it randomly into three pieces. What is the probability that you can make a triangle using such three pieces?
+% \end{homeworkProblem}
+
+
+\newpage
+\begin{homeworkProblem}[3]
+Events $A$ and $B$ are \emph{independent} if $P(A \cap B) = P(A)P(B)$.
+    \begin{enumerate}
+        \item Give an example of independent events $A$ and $B$ in a finite sample space $S$ (with neither equal to $\emptyset$ or $S$).
+        \item Consider the experiment of picking a random point in the rectangle
+        \[
+        R = \{(x, y) : 0 < x < 1, 0 < y < 1\},
+        \]
+        where the probability of the point being in any particular region contained within $R$ is the area of that region. Let $A_1$ and $B_1$ be rectangles contained within $R$, with areas not equal to 0 or 1. Let $A$ be the event that the random point is in $A_1$, and $B$ be the event that the random point is in $B_1$. Give a geometric description of when it is true that $A$ and $B$ are independent. Also, give an example where they are independent and another example where they are not independent.
+        \item Show that if $A$ and $B$ are independent, then
+        \[
+        P(A \cup B) = P(A) + P(B) - P(A)P(B) = 1 - P(A^c)P(B^c).
+        \]
+    \end{enumerate}
+
+\end{homeworkProblem}
+
+% \newpage
+% \begin{homeworkProblem}[4]
+% \textbf{(Geometric Probability)} You get a stick and break it randomly into three pieces. What is the probability that you can make a triangle using such three pieces?
+% \end{homeworkProblem}
+
+\newpage
+\begin{homeworkProblem}[4]
+Consider four nonstandard dice (the \emph{Efron dice}), whose sides are labeled as follows (the 6 sides on each die are equally likely).
+    \begin{itemize}
+        \item[] A: $4, 4, 4, 4, 0, 0$
+        \item[] B: $3, 3, 3, 3, 3, 3$
+        \item[] C: $6, 6, 2, 2, 2, 2$
+        \item[] D: $5, 5, 5, 1, 1, 1$
+    \end{itemize}
+    These four dice are each rolled once. Let $A$ be the result for die $A$, $B$ be the result for die $B$, etc.
+    \begin{enumerate}
+        \item Find $P(A > B)$, $P(B > C)$, $P(C > D)$, and $P(D > A)$.
+        \item Is the event $A > B$ independent of the event $B > C$? Is the event $B > C$ independent of the event $C > D$? Explain.
+    \end{enumerate}
+\end{homeworkProblem}
+
+ 
+
+
+
+
+\end{document}
+
+
+
+% % !TeX TS-program = pdflatex
+
+
+% \documentclass[a4paper]{article}
+
+% % \usepackage[default]{fontsetup}
+
+% \usepackage{fancyhdr}
+% \usepackage{extramarks}
+% \usepackage{amsmath}
+% \usepackage{amsthm}
+% \usepackage{amsfonts}
+% \usepackage{tikz}
+% \usepackage[plain]{algorithm}
+% \usepackage{algpseudocode}
+% \usepackage{enumerate}
+% \usepackage{tikz}
+
+% \usetikzlibrary{automata,positioning}
+
+% %
+% % Basic Document Settings
+% %  
+
+% \topmargin=-0.2in
+% \evensidemargin=0in
+% \oddsidemargin=0in
+% \textwidth=6.5in
+% \textheight=9.5in
+% \headsep=0.25in
+
+% \linespread{1.1}
+
+% \pagestyle{fancy}
+% \lhead{\hmwkAuthorName}
+% \chead{\hmwkClass : \hmwkTitle}
+% \rhead{\firstxmark}
+% \lfoot{\lastxmark}
+% \cfoot{\thepage}
+
+% \renewcommand\headrulewidth{0.4pt}
+% \renewcommand\footrulewidth{0.4pt}
+
+% \setlength\parindent{0pt}
+
+% %
+% % Create Problem Sections
+% %
+
+% \newcommand{\enterProblemHeader}[1]{
+%     \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+%     \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+% }
+
+% \newcommand{\exitProblemHeader}[1]{
+%     \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+%     \stepcounter{#1}
+%     \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+% }
+
+% \newcommand*\circled[1]{\tikz[baseline=(char.base)]{
+% 		\node[shape=circle,draw,inner sep=2pt] (char) {#1};}}
+
+
+% \setcounter{secnumdepth}{0}
+% \newcounter{partCounter}
+% \newcounter{homeworkProblemCounter}
+% \setcounter{homeworkProblemCounter}{1}
+% \nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+% %
+% % Homework Problem Environment
+% %
+% % This environment takes an optional argument. When given, it will adjust the
+% % problem counter. This is useful for when the problems given for your
+% % assignment aren't sequential. See the last 3 problems of this template for an
+% % example.
+% %
+
+% \newenvironment{homeworkProblem}[1][-1]{
+%     \ifnum#1>0
+%         \setcounter{homeworkProblemCounter}{#1}
+%     \fi
+%     \section{Problem \arabic{homeworkProblemCounter}}
+%     \setcounter{partCounter}{1}
+%     \enterProblemHeader{homeworkProblemCounter}
+% }{
+%     \exitProblemHeader{homeworkProblemCounter}
+% }
+
+% %
+% % Homework Details
+% %   - Title
+% %   - Class
+% %   - Due date
+% %   - Name
+% %   - Student ID
+
+% \newcommand{\hmwkTitle}{Homework\ \#13}
+% \newcommand{\hmwkClass}{Probability \& Statistics for EECS}
+% \newcommand{\hmwkDueDate}{2025-01-07}
+% \newcommand{\hmwkAuthorName}{}
+% \newcommand{\hmwkAuthorID}{}
+
+
+% %
+% % Title Page
+% %
+
+% \title{
+%     \vspace{2in}
+%     \textmd{\textbf{\hmwkClass:\\  \hmwkTitle}}\\
+%     \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at 11:59}\\
+% 	\vspace{4in}
+% }
+
+% \author{
+% 	Name: \textbf{\hmwkAuthorName} \\
+% 	Student ID: \hmwkAuthorID}
+% \date{}
+
+% \renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+% %
+% % Various Helper Commands
+% %
+
+% % Useful for algorithms
+% \newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+% % For derivatives
+% \newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+% % For partial derivatives
+% \newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+% % Integral dx
+% \newcommand{\dx}{\mathrm{d}x}
+% % Alias for the Solution section header
+% \newcommand{\solution}{\textbf{\large Solution}}
+% % Probability commands: Expectation, Variance, Covariance, Bias
+% \newcommand{\E}{\mathrm{E}}
+% \newcommand{\Var}{\mathrm{Var}}
+% \newcommand{\Cov}{\mathrm{Cov}}
+% \newcommand{\Bias}{\mathrm{Bias}}
+
+% \begin{document}
+
+
+% % \maketitle
+% % \thispagestyle{empty}
+% % \pagebreak
+
+% \date{
+% Due on Jan. 7, 2025, 11:59 UTC+8}
+% \title{SI 140A-02  Probability \& Statistics for EECS, Fall 2024 \\
+% Homework 13}
+% \maketitle
+% Read all the instructions below carefully before you start working on the assignment, and before you make a submission.
+% \begin{itemize}
+%     \item You are required to write down all the major steps towards making your conclusions; otherwise you may obtain limited points of the problem.
+%     \item Write your homework in English; otherwise you will get no points of this homework.
+%     \item Any form of plagiarism will lead to $0$ point of this homework. 
+% \end{itemize}
+% \newpage
+
+% \begin{homeworkProblem}[1]
+% Given a Markov chain with state-transition diagram shown as follows:
+% \begin{center}
+%     \includegraphics[width=0.3\textwidth]{hw13_1.png}
+% \end{center}
+% (a)
+% Is this chain irreducible?\\[2px]
+% (b)
+% Is this chain aperiodic?\\[2px]
+% (c)
+% Find the stationary distribution of this chain.\\[2px]
+% (d)
+% Is this chain reversible?
+% \end{homeworkProblem}
+
+% \newpage
+% \begin{homeworkProblem}[2]
+% Given a Markov chain with state-transition diagram shown as follows:
+% \begin{center}
+%     \includegraphics[width=0.3\textwidth]{hw13_1.png}
+% \end{center}
+% (a) Find \(P(X_{9}=3 \mid X_{8}=1)\) and \(P(X_{8}=2 \mid X_{7}=3)\).\\[2px]
+% (b) If \(P(X_{0}=3) = \frac{1}{2}\), find \(P(X_{0}=3, X_{1}=1, X_{2}=2, X_{4}=3)\).\\[2px]
+% (c) Find \(E(X_{8} \mid X_{6}=2)\).\\[2px]
+% (d) Find \(\operatorname{Var}(X_{7} \mid X_{5}=3)\).\\[2px]
+% \end{homeworkProblem}
+
+
+
+% \newpage
+% \begin{homeworkProblem}[3]
+% There are two urns with a total of \(2N\) distinguishable balls. Initially, the first urn has \(N\) white balls and the second urn has \(N\) black balls. At each stage, we pick a ball at random from each urn and interchange them. Let \(X_{n}\) be the number of black balls in the first urn at time \(n\). This is a Markov chain on the state space \(\{0,1,\ldots,N\}\).\\[4px]
+% (a) Find the transition probabilities of the chain.\\[2px]
+% (b) Find the stationary distribution of the chain.\\[2px]
+
+% \end{homeworkProblem}
+
+
+% \end{document}
