@@ -1,0 +1,449 @@
+% !TeX program = xelatex
+% Compile with XeLaTeX in Overleaf.
+
+
+\documentclass[a4paper]{article}
+\usepackage{xeCJK}
+\setCJKmainfont[BoldFont=FandolSong-Bold.otf]{FandolSong-Regular.otf}
+\usepackage{needspace}
+
+% \usepackage[default]{fontsetup}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+\usepackage{enumerate}
+\usepackage{tikz}
+
+\usetikzlibrary{automata,positioning}
+
+%
+% Basic Document Settings
+%  
+
+\topmargin=-0.2in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.5in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{}
+\chead{\hmwkClass : \hmwkTitle}
+\rhead{\firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{
+    \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\newcommand*\circled[1]{\tikz[baseline=(char.base)]{
+		\node[shape=circle,draw,inner sep=2pt] (char) {#1};}}
+
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Problem \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Class
+%   - Due date
+%   - Name
+%   - Student ID
+
+\newcommand{\hmwkTitle}{Homework\ \#03}
+\newcommand{\hmwkClass}{Probability \& Statistics for EECS}
+\newcommand{\hmwkDueDate}{2026-10-20}
+\newcommand{\hmwkAuthorName}{杨涵}
+\newcommand{\hmwkAuthorID}{2025531064}
+
+
+%
+% Title Page
+%
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass:\\  \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at 18:00}\\
+	\vspace{4in}
+}
+
+\author{
+	Name: \textbf{\hmwkAuthorName} \\
+	Student ID: \hmwkAuthorID}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+% Alias for the Solution section header
+\newcommand{\solution}{\par\addvspace{\baselineskip}\Needspace{4\baselineskip}\noindent\textbf{\large Solution}\par\nobreak\smallskip}
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\E}{\mathrm{E}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+
+\begin{document}
+
+\date{
+		Due on Oct. 20, 2026, 18:00 UTC+8}
+	\title{SI 140A-01  Probability \& Statistics for EECS, Fall 2026 \\
+		Homework 3}
+	\maketitle
+	Read all the instructions below carefully before you start working on the assignment, and before you make a submission.
+	\begin{itemize}
+		\item You are required to write down all the major steps towards making your conclusions; otherwise you may obtain limited points of the problem.
+		\item Write your homework in English; otherwise you will get no points of this homework.
+		\item Any form of plagiarism will lead to $0$ point of this homework. 
+	\end{itemize}
+
+\newpage
+
+\begin{homeworkProblem}[1]
+
+To battle against spam, Bob installs two anti-spam programs. An email arrives, which is either legitimate (event $L$) or spam (event $L^c$), and which program $j$ marks as legitimate (event $M_j$) or marks as spam (event $M^c_j$) for $j \in \{1, 2\}$. Assume that $10\%$ of Bobs email is legitimate and that the two programs are each "$90\%$ accurate" in the sense that $ P(M_j |L) = P(M^c_j |L^c) = 9/10$. Also assume that given whether an email is spam, the two programs' outputs are conditionally independent.
+		\begin{enumerate} [(a)]
+			\item Find the probability that the email is legitimate, given that the 1st program marks it as legitimate (simplify).
+			\item Find the probability that the email is legitimate, given that both programs mark it as legitimate (simplify).
+			\item Bob runs the 1st program and $M_1$ occurs. He updates his probabilities and then runs the 2nd program. Let $\Tilde{P}(A) = P(A|M_1)$ be the updated probability function after running the 1st program. Explain briefly in words whether or not $\Tilde{P}(L|M_2) = P(L|M_1 \cap M_2)$: is conditioning on $M_1 \cap M_2$ in one step equivalent to first conditioning on $M_1$, then updating probabilities, and then conditioning on $M_2$?
+		\end{enumerate}
+
+\solution
+\textbf{(a)} By Bayes' rule,
+\begin{align*}
+P(L\mid M_1)
+&=\frac{P(M_1\mid L)P(L)}{P(M_1)}\\
+&=\frac{P(M_1\mid L)P(L)}
+{P(M_1\mid L)P(L)+P(M_1\mid L^c)P(L^c)}\\
+&=\frac{0.9\times0.1}{0.9\times0.1+0.1\times0.9}
+=\frac{0.09}{0.18}=\frac12.
+\end{align*}
+
+\medskip
+\Needspace{12\baselineskip}
+\textbf{(b)} We have
+\[
+P(L\mid M_1\cap M_2)
+=\frac{P(M_1\cap M_2\mid L)P(L)}{P(M_1\cap M_2)}.
+\]
+By conditional independence,
+\[
+P(M_1\cap M_2\mid L)=0.9\times0.9=0.81.
+\]
+Also,
+\begin{align*}
+P(M_1\cap M_2)
+&=P(M_1\cap M_2\mid L)P(L)
+ +P(M_1\cap M_2\mid L^c)P(L^c)\\
+&=0.81\times0.1+0.1\times0.1\times0.9=0.09.
+\end{align*}
+Thus,
+\[
+P(L\mid M_1\cap M_2)
+=\frac{0.81\times0.1}{0.09}=0.9=\frac9{10}.
+\]
+
+\medskip
+\Needspace{11\baselineskip}
+\textbf{(c)} We have
+\begin{align*}
+\widetilde P(L\mid M_2)
+&=\frac{\widetilde P(L\cap M_2)}{\widetilde P(M_2)}\\
+&=\frac{P(L\cap M_2\mid M_1)}{P(M_2\mid M_1)}\\
+&=\frac{P(L\cap M_2\cap M_1)/P(M_1)}
+{P(M_1\cap M_2)/P(M_1)}\\
+&=P(L\mid M_1\cap M_2).
+\end{align*}
+So they are equal. Since $\widetilde P$ already incorporates the information
+from $M_1$, conditioning further on $M_2$ is equivalent to conditioning on
+$M_1\cap M_2$ in one step.
+
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}[2]
+
+Fred decides to take a series of $n$ tests, to diagnose whether he has a certain disease (any individual test is not perfectly reliable, so he hopes to reduce his uncertainty by taking multiple tests).
+		Let $D$ be the event that he has the disease, $ p = P(D) $ be the prior probability that he has the disease, and $ q = 1 - p $.
+		Let $T_{j}$ be the event that he tests positive on the $j$th test.
+		\begin{enumerate}[(a)]
+			\item Assume for this part that the test results are conditionally independent given Fred's disease status. Let $a=P\left(T_{j} \mid D\right)$ and $b=P\left(T_{j} \mid D^{c}\right)$, where $a$ and $b$ don't depend on the $j$th test.
+			Find the posterior probability that Fred has the disease, given that he tests positive on all $n$ of the $n$ tests.
+			\item Suppose that Fred tests positive on all $n$ tests. However, some people have a certain gene that makes them always test positive. Let $G$ be the event that Fred has the gene. Assume that $P(G)=1 / 2$ and that $D$ and $G$ are independent. If Fred does not have the gene, then the test results are conditionally independent given his disease status. Let $a_{0}=P\left(T_{j} \mid D, G^{c}\right)$ and $b_{0}=P\left(T_{j} \mid D^{c}, G^{c}\right)$, where $a_{0}$ and $b_{0}$ don't depend on $j .$ Find the posterior probability that Fred has the disease, given that he tests positive on all $n$ of the tests.
+		\end{enumerate}
+
+\solution
+\textbf{(a)} Define
+\[
+E=\bigcap_{j=1}^{n}T_j,
+\]
+the event that Fred tests positive on all $n$ tests. By Bayes' rule,
+\[
+P(D\mid E)=\frac{P(E\mid D)P(D)}
+{P(E\mid D)P(D)+P(E\mid D^c)P(D^c)}.
+\]
+By conditional independence,
+\[
+P(E\mid D)=\prod_{j=1}^{n}P(T_j\mid D)=a^n,
+\qquad P(E\mid D^c)=b^n.
+\]
+Therefore,
+\[
+P(D\mid E)=\frac{pa^n}{pa^n+qb^n}.
+\]
+
+\medskip
+\Needspace{10\baselineskip}
+\textbf{(b)} Since $P(G)=\frac12$ and $D$ and $G$ are independent,
+\[
+P(D\cap G)=P(D\cap G^c)=\frac p2,
+\qquad P(D^c\cap G)=P(D^c\cap G^c)=\frac q2.
+\]
+We also have
+\[
+P(E\mid D,G)=P(E\mid D^c,G)=1,
+\]
+and
+\[
+P(E\mid D,G^c)=a_0^n,
+\qquad P(E\mid D^c,G^c)=b_0^n.
+\]
+
+\Needspace{12\baselineskip}
+Divide the population according to gene status. Then
+\begin{align*}
+P(D\cap E)
+&=P(D\cap G)P(E\mid D,G)
+ +P(D\cap G^c)P(E\mid D,G^c)\\
+&=\frac p2+\frac p2a_0^n
+=\frac p2(1+a_0^n).
+\end{align*}
+Similarly,
+\[
+P(D^c\cap E)=\frac q2(1+b_0^n),
+\qquad
+P(E)=\frac p2(1+a_0^n)+\frac q2(1+b_0^n).
+\]
+Therefore,
+\begin{align*}
+P(D\mid E)
+&=\frac{P(D\cap E)}{P(E)}\\
+&=\frac{p(1+a_0^n)}{p(1+a_0^n)+q(1+b_0^n)}\\
+&=\frac{p(1+a_0^n)}{1+pa_0^n+qb_0^n}.
+\end{align*}
+
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}[3]
+
+Suppose that in the population of gamers, being good at Genshin Impact is independent of being good at Apex (with respect to some measure of ``good'').
+	A certain school club has a simple admission procedure: admit an applicant if and only if the applicant is good at Genshin Impact or is good at Apex. 
+
+\begin{enumerate}[(a)]
+	\item
+		Intuitive explain why it makes sense that among gamers that the club admits, being good at Apex is negatively associated with being good at Genshin Impact, \textit{i.e.}, conditioning on being good at Apex decreases the chance of being good at Genshin Impact. 
+	
+	\item
+	(Berkson's paradox)
+	Show that if $A$ and $B$ are independent and $C = A \cup B$, then $A$ and $B$ are conditionally dependent given $C$ (as long as $P(A \cap B)>0$ and $P(A \cup B)<1)$, with
+	\begin{equation*}
+		P(A \mid B \cap C) < P(A \mid C).  
+	\end{equation*}
+\end{enumerate}
+
+\solution
+\textbf{(a)} Among admitted gamers, one must be good at at least one of the
+games. Since being good at Genshin Impact and being good at Apex are
+independent, if a gamer is good at Genshin Impact, there is already a
+sufficient explanation for admission. Therefore, the evidence that the gamer
+is good at Apex becomes weaker.
+
+\medskip
+\Needspace{15\baselineskip}
+\textbf{(b)} We have $C=A\cup B$, $A$ and $B$ are independent, and
+\[
+A=C\cap A,\qquad B=C\cap B.
+\]
+Thus,
+\[
+P(A\mid B\cap C)=P(A\mid B)
+=\frac{P(A\cap B)}{P(B)}
+=\frac{P(A)P(B)}{P(B)}=P(A).
+\]
+Also,
+\[
+P(A\mid C)=\frac{P(A\cap C)}{P(C)}=\frac{P(A)}{P(C)}.
+\]
+Since $P(A)>0$ and $0<P(C)<1$,
+\[
+\frac{P(A)}{P(C)}>P(A).
+\]
+Therefore,
+\[
+P(A\mid B\cap C)<P(A\mid C).
+\]
+
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}[4]
+
+You are going to play 2 games of chess with an opponent whom you have never
+played against before (for the sake of this problem). Your opponent is equally likely to
+be a beginner, intermediate, or a master. Depending on which, your chances of winning
+an individual game are 90\%, 50\%, or 30\%, respectively.
+
+ 
+\begin{enumerate}[(a)]
+	\item
+	What is your probability of winning the first game? 
+	
+	\item
+	Congratulations: you won the first game! Given this information, what is the probability that you will also win the second game (assume that, given the skill level of your
+opponent, the outcomes of the games are independent)?  
+	
+ 
+	
+	\item
+	Explain the distinction between assuming that the outcomes of the games are independent and assuming that they are conditionally independent given the opponent’s
+skill level. Which of these assumptions seems more reasonable, and why? 
+\end{enumerate}
+
+\solution
+\textbf{(a)} Let $B$, $I$, and $M$ be the events that the opponent is a
+beginner, intermediate, or a master, respectively. Let $W_j$ be the event of
+winning the $j$th game. Then
+\[
+P(B)=P(I)=P(M)=\frac13,
+\]
+and
+\[
+P(W_j\mid B)=0.9,\qquad
+P(W_j\mid I)=0.5,\qquad
+P(W_j\mid M)=0.3.
+\]
+Hence,
+\begin{align*}
+P(W_1)
+&=P(W_1\mid B)P(B)+P(W_1\mid I)P(I)+P(W_1\mid M)P(M)\\
+&=\frac13(0.9+0.5+0.3)=\frac{17}{30}\approx56.67\%.
+\end{align*}
+
+\medskip
+\Needspace{14\baselineskip}
+\textbf{(b)} By Bayes' rule,
+\[
+P(B\mid W_1)=\frac{P(W_1\mid B)P(B)}{P(W_1)}
+=\frac{0.9\times\frac13}{17/30}=\frac9{17}.
+\]
+Similarly,
+\[
+P(I\mid W_1)=\frac5{17},\qquad
+P(M\mid W_1)=\frac3{17}.
+\]
+Given the opponent's skill level, the outcomes are conditionally independent:
+\[
+P(W_2\mid W_1\cap H)=P(W_2\mid H),\qquad H\in\{B,I,M\}.
+\]
+Thus,
+\begin{align*}
+P(W_2\mid W_1)
+&=\sum_{H\in\{B,I,M\}}P(W_2\mid H)P(H\mid W_1)\\
+&=\frac9{17}\times0.9+\frac5{17}\times0.5+\frac3{17}\times0.3\\
+&=\frac{11.5}{17}=\frac{23}{34}\approx67.65\%.
+\end{align*}
+
+\medskip
+\Needspace{10\baselineskip}
+\textbf{(c)} Unconditional independence means
+\[
+P(W_2\mid W_1)=P(W_2).
+\]
+Winning the first game would not change the probability of winning the
+second game.
+
+\medskip
+\Needspace{7\baselineskip}
+Conditional independence means
+\[
+P(W_2\mid W_1\cap H)=P(W_2\mid H),\qquad H\in\{B,I,M\}.
+\]
+If the skill level is initially unknown, the first game's outcome can
+provide information and change the probability.
+
+\medskip
+\Needspace{4\baselineskip}
+Conditional independence is more reasonable because we play against the same
+opponent, whose unknown skill level affects the outcomes. Winning the first
+game implies that the opponent is more likely to be a beginner, thereby
+increasing the estimated probability of winning the second game.
+
+\end{homeworkProblem}
+
+\end{document}

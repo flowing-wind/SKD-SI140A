@@ -1,0 +1,232 @@
+% !TeX TS-program = pdflatex
+
+\documentclass[a4paper]{article}
+
+% \usepackage[default]{fontsetup}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+\usepackage{enumerate}
+\usepackage{tikz}
+
+\usetikzlibrary{automata,positioning}
+
+%
+% Basic Document Settings
+%  
+
+\topmargin=-0.2in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.5in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass : \hmwkTitle}
+\rhead{\firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+
+%
+% Create Problem Sections
+%
+
+%修改下标的地方
+%\newcommand{\enterProblemHeader}[1]{
+	%	\nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+	%	\nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+	%}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Problem \arabic{#1} }{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+	\stepcounter{#1}
+	\nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\newcommand*\circled[1]{\tikz[baseline=(char.base)]{
+		\node[shape=circle,draw,inner sep=2pt] (char) {#1};}}
+
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+
+\newenvironment{homeworkProblem}[1][-1]{
+	\ifnum#1>0
+	\setcounter{homeworkProblemCounter}{#1}
+	\fi
+	\section{Problem \arabic{homeworkProblemCounter} }
+	\setcounter{partCounter}{1}
+	% \enterProblemHeader{homeworkProblemCounter} % 注释掉未定义的命令
+}{
+	\exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Class
+%   - Due date
+%   - Name
+%   - Student ID
+
+\newcommand{\hmwkTitle}{Homework\ \#03}
+\newcommand{\hmwkClass}{Probability \& Statistics for EECS}
+\newcommand{\hmwkDueDate}{2026-10-20}
+\newcommand{\hmwkAuthorName}{}
+\newcommand{\hmwkAuthorID}{}
+
+
+%
+% Title Page
+%
+
+\title{
+	\vspace{2in}
+	\textmd{\textbf{\hmwkClass:\\  \hmwkTitle}}\\
+	\normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at 23:59}\\
+	\vspace{4in}
+}
+
+\author{
+	Name: \textbf{\hmwkAuthorName} \\
+	Student ID: \hmwkAuthorID}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+% Alias for the Solution section header
+\newcommand{\solution}{\textbf{\large Solution}}
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\E}{\mathrm{E}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+
+\begin{document}
+	
+	
+	% \maketitle
+	% \thispagestyle{empty}
+	% \pagebreak
+	
+	\date{
+		Due on Oct. 20, 2026, 18:00 UTC+8}
+	\title{SI 140A-01  Probability \& Statistics for EECS, Fall 2026 \\
+		Homework 3}
+	\maketitle
+	Read all the instructions below carefully before you start working on the assignment, and before you make a submission.
+	\begin{itemize}
+		\item You are required to write down all the major steps towards making your conclusions; otherwise you may obtain limited points of the problem.
+		\item Write your homework in English; otherwise you will get no points of this homework.
+		\item Any form of plagiarism will lead to $0$ point of this homework. 
+	\end{itemize}
+	
+	
+	
+	\newpage
+	\begin{homeworkProblem}
+		To battle against spam, Bob installs two anti-spam programs. An email arrives, which is either legitimate (event $L$) or spam (event $L^c$), and which program $j$ marks as legitimate (event $M_j$) or marks as spam (event $M^c_j$) for $j \in \{1, 2\}$. Assume that $10\%$ of Bobs email is legitimate and that the two programs are each "$90\%$ accurate" in the sense that $ P(M_j |L) = P(M^c_j |L^c) = 9/10$. Also assume that given whether an email is spam, the two programs' outputs are conditionally independent.
+		\begin{enumerate} [(a)]
+			\item Find the probability that the email is legitimate, given that the 1st program marks it as legitimate (simplify).
+			\item Find the probability that the email is legitimate, given that both programs mark it as legitimate (simplify).
+			\item Bob runs the 1st program and $M_1$ occurs. He updates his probabilities and then runs the 2nd program. Let $\Tilde{P}(A) = P(A|M_1)$ be the updated probability function after running the 1st program. Explain briefly in words whether or not $\Tilde{P}(L|M_2) = P(L|M_1 \cap M_2)$: is conditioning on $M_1 \cap M_2$ in one step equivalent to first conditioning on $M_1$, then updating probabilities, and then conditioning on $M_2$?
+		\end{enumerate}
+		
+	\end{homeworkProblem}
+	
+	\newpage
+	\begin{homeworkProblem}
+		Fred decides to take a series of $n$ tests, to diagnose whether he has a certain disease (any individual test is not perfectly reliable, so he hopes to reduce his uncertainty by taking multiple tests).
+		Let $D$ be the event that he has the disease, $ p = P(D) $ be the prior probability that he has the disease, and $ q = 1 - p $.
+		Let $T_{j}$ be the event that he tests positive on the $j$th test.
+		\begin{enumerate}[(a)]
+			\item Assume for this part that the test results are conditionally independent given Fred's disease status. Let $a=P\left(T_{j} \mid D\right)$ and $b=P\left(T_{j} \mid D^{c}\right)$, where $a$ and $b$ don't depend on the $j$th test.
+			Find the posterior probability that Fred has the disease, given that he tests positive on all $n$ of the $n$ tests.
+			\item Suppose that Fred tests positive on all $n$ tests. However, some people have a certain gene that makes them always test positive. Let $G$ be the event that Fred has the gene. Assume that $P(G)=1 / 2$ and that $D$ and $G$ are independent. If Fred does not have the gene, then the test results are conditionally independent given his disease status. Let $a_{0}=P\left(T_{j} \mid D, G^{c}\right)$ and $b_{0}=P\left(T_{j} \mid D^{c}, G^{c}\right)$, where $a_{0}$ and $b_{0}$ don't depend on $j .$ Find the posterior probability that Fred has the disease, given that he tests positive on all $n$ of the tests.
+		\end{enumerate}
+		
+	\end{homeworkProblem}
+	
+	\newpage
+	\begin{homeworkProblem}
+		 	 Suppose that in the population of gamers, being good at Genshin Impact is independent of being good at Apex (with respect to some measure of ``good'').
+	A certain school club has a simple admission procedure: admit an applicant if and only if the applicant is good at Genshin Impact or is good at Apex. 
+
+\begin{enumerate}[(a)]
+	\item
+		Intuitive explain why it makes sense that among gamers that the club admits, being good at Apex is negatively associated with being good at Genshin Impact, \textit{i.e.}, conditioning on being good at Apex decreases the chance of being good at Genshin Impact. 
+	
+	\item
+	(Berkson's paradox)
+	Show that if $A$ and $B$ are independent and $C = A \cup B$, then $A$ and $B$ are conditionally dependent given $C$ (as long as $P(A \cap B)>0$ and $P(A \cup B)<1)$, with
+	\begin{equation*}
+		P(A \mid B \cap C) < P(A \mid C).  
+	\end{equation*}
+\end{enumerate}
+	\end{homeworkProblem}
+	
+	
+	\newpage
+	\begin{homeworkProblem}
+	You are going to play 2 games of chess with an opponent whom you have never
+played against before (for the sake of this problem). Your opponent is equally likely to
+be a beginner, intermediate, or a master. Depending on which, your chances of winning
+an individual game are 90\%, 50\%, or 30\%, respectively.
+
+ 
+\begin{enumerate}[(a)]
+	\item
+	What is your probability of winning the first game? 
+	
+	\item
+	Congratulations: you won the first game! Given this information, what is the probability that you will also win the second game (assume that, given the skill level of your
+opponent, the outcomes of the games are independent)?  
+	
+ 
+	
+	\item
+	Explain the distinction between assuming that the outcomes of the games are independent and assuming that they are conditionally independent given the opponent’s
+skill level. Which of these assumptions seems more reasonable, and why? 
+\end{enumerate}
+\end{homeworkProblem}
+	
+\end{document}
