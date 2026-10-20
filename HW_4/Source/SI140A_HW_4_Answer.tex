@@ -1,0 +1,335 @@
+% !TeX program = xelatex
+% Compile with XeLaTeX in Overleaf.
+
+\documentclass[a4paper]{article}
+\usepackage{xeCJK}
+\setCJKmainfont[BoldFont=FandolSong-Bold.otf]{FandolSong-Regular.otf}
+\usepackage{needspace}
+
+% \usepackage[default]{fontsetup}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+\usepackage{enumerate}
+\usepackage{tikz}
+
+\usetikzlibrary{automata,positioning}
+
+%
+% Basic Document Settings
+%
+
+\topmargin=-0.2in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.5in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{}
+\chead{\hmwkClass : \hmwkTitle}
+\rhead{\firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Problem \arabic{#1} }{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\newcommand*\circled[1]{\tikz[baseline=(char.base)]{
+    \node[shape=circle,draw,inner sep=2pt] (char) {#1};}}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Problem \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%
+
+\newcommand{\hmwkTitle}{Homework\ \#04}
+\newcommand{\hmwkClass}{Probability \& Statistics for EECS}
+\newcommand{\hmwkDueDate}{2026-10-27}
+\newcommand{\hmwkAuthorName}{杨涵}
+\newcommand{\hmwkAuthorID}{2025531064}
+
+%
+% Title Page
+%
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass:\\ \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at 18:00}\\
+    \vspace{4in}
+}
+
+\author{
+    Name: \textbf{\hmwkAuthorName} \\
+    Student ID: \hmwkAuthorID}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+\newcommand{\dx}{\mathrm{d}x}
+\newcommand{\solution}{\par\addvspace{\baselineskip}\Needspace{4\baselineskip}\noindent\textbf{\large Solution}\par\nobreak\smallskip}
+\newcommand{\E}{\mathrm{E}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+
+\begin{document}
+
+\date{
+    Due on Oct. 27, 2026, 18:00 UTC+8}
+\title{SI 140A-01  Probability \& Statistics for EECS, Fall 2026 \\
+    Homework 4}
+\maketitle
+Read all the instructions below carefully before you start working on the assignment, and before you make a submission.
+\begin{itemize}
+    \item You are required to write down all the major steps towards making your conclusions; otherwise you may obtain limited points of the problem.
+    \item Write your homework in English; otherwise you will get no points of this homework.
+    \item Any form of plagiarism will lead to $0$ point of this homework.
+\end{itemize}
+
+\newpage
+
+\begin{homeworkProblem}
+A book has $n$ typos. Two proofreaders, Prue and Frida, independently read the book.
+Prue catches each typo with probability $p_1$ and misses it with probability $q_1 = 1-p_1$, independently, and likewise for Frida, who has probabilities $p_2$ of catching and $q_2=1-p_2$ of missing each typo. Let $X_1$ be the number of typos caught by Prue, $X_2$ be the number caught by Frida, and $X$ be the number caught by at least one of the two proofreaders.
+\begin{enumerate}
+    \item[(a)] Find the distribution of $X$.
+    \item[(b)] For this part only, assume that $p_1 = p_2$. Find the conditional distribution of $X_1$ given that $X_1 + X_2 = t$.
+\end{enumerate}
+
+\solution
+\textbf{(a)} The probability that both proofreaders miss a typo is
+\[
+q_1q_2=(1-p_1)(1-p_2).
+\]
+Thus,
+\[
+X\sim\mathrm{Bin}(n,1-q_1q_2),
+\]
+with
+\[
+P(X=k)=\binom{n}{k}(1-q_1q_2)^k(q_1q_2)^{n-k},
+\qquad k=0,1,\dots,n.
+\]
+
+\medskip
+\Needspace{17\baselineskip}
+\textbf{(b)} Let $p_1=p_2=p$ and write $q=1-p$. Since $X_1$ and $X_2$
+are independent,
+\[
+X_1\sim\mathrm{Bin}(n,p),\qquad
+X_2\sim\mathrm{Bin}(n,p),\qquad
+X_1+X_2\sim\mathrm{Bin}(2n,p).
+\]
+Given $X_1+X_2=t$, we have
+\begin{align*}
+P(X_1=k\mid X_1+X_2=t)
+&=\frac{P(X_1=k,\ X_2=t-k)}{P(X_1+X_2=t)}\\
+&=\frac{P(X_1=k)P(X_2=t-k)}{P(X_1+X_2=t)}\\
+&=\frac{\binom{n}{k}(1-q)^kq^{n-k}
+        \binom{n}{t-k}(1-q)^{t-k}q^{n-t+k}}
+       {\binom{2n}{t}(1-q)^tq^{2n-t}}\\
+&=\frac{\binom{n}{k}\binom{n}{t-k}}{\binom{2n}{t}}.
+\end{align*}
+Therefore,
+\[
+P(X_1=k\mid X_1+X_2=t)
+=\frac{\binom{n}{k}\binom{n}{t-k}}{\binom{2n}{t}},
+\qquad 0\leq k\leq\min(n,t).
+\]
+
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+Let $X$ be a random day of the week, coded so that Monday is $1$, Tuesday is $2$, \textit{etc}. (so $X$ takes values $1, 2, \dots, 7$ with equal probabilities).
+Let $Y$ be the next day after $X$.
+Do $X$ and $Y$ have the same distribution?
+What is $P(X < Y)$?
+
+\solution
+We have
+\[
+P(X=k)=\frac17,\qquad P(Y=k)=\frac17,
+\qquad k=1,2,\dots,7.
+\]
+Thus, $X$ and $Y$ have the same distribution. The possible pairs are
+\[
+\begin{array}{c|ccccccc}
+X & 1 & 2 & 3 & 4 & 5 & 6 & 7\\
+\hline
+Y & 2 & 3 & 4 & 5 & 6 & 7 & 1
+\end{array}
+\]
+The inequality $X<Y$ holds for the first six pairs, so
+\[
+P(X<Y)=\frac67.
+\]
+
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+For $X$ and $Y$ binary digits (0 or 1), let $X \oplus Y$ be 0 if $X=Y$ and 1 if $X\neq Y$ (this operation is called exclusive or (often abbreviated to XOR), or addition mod 2).
+\begin{enumerate}[(a)]
+    \item Let $X \sim {\rm Bern}(p)$ and $Y \sim {\rm Bern}(1/2)$, independently. What is the distribution of $X \oplus Y$?
+    \item With notation as in sub-problem (a), is $X \oplus Y$ independent of $X$?  Is $X \oplus Y$ independent of $Y$?  Be sure to consider both the case $p= 1/2$ and the case $p\neq 1/2$.
+    \item Let $X_1, ... ,X_n$ be i.i.d. (i.e., independent and identically distributed) Bern(1/2) R.V.s. For each nonempty subset $J$ of $\{1,2,...,n\}$, let
+    \begin{equation*}
+        Y_J=\oplus_{j \in J}X_j.
+    \end{equation*}
+    Show that $Y_J \sim {\rm Bern}(1/2)$ and that these $2^n-1$ R.V.s are pairwise independent, but not independent.
+\end{enumerate}
+
+\solution
+\textbf{(a)} Let $Z=X\oplus Y$. The truth table is
+\[
+\begin{array}{cc|c}
+X & Y & Z\\
+\hline
+0 & 0 & 0\\
+0 & 1 & 1\\
+1 & 0 & 1\\
+1 & 1 & 0
+\end{array}
+\]
+Since $X\sim\mathrm{Bern}(p)$ and $Y\sim\mathrm{Bern}(1/2)$ independently,
+\[
+P(X=1)=p,\qquad P(X=0)=1-p,\qquad
+P(Y=1)=P(Y=0)=\frac12.
+\]
+Hence,
+\begin{align*}
+P(Z=1)
+&=P(X=0,Y=1)+P(X=1,Y=0)
+=\frac12(1-p)+\frac12p=\frac12,\\
+P(Z=0)
+&=P(X=1,Y=1)+P(X=0,Y=0)
+=\frac12p+\frac12(1-p)=\frac12.
+\end{align*}
+Thus, $X\oplus Y\sim\mathrm{Bern}(1/2)$.
+
+\medskip
+\Needspace{15\baselineskip}
+\textbf{(b)} If $X$ is known, then $Z$ is either $Y$ or $1-Y$. In either
+case, the probabilities of $Z=0$ and $Z=1$ remain $1/2$. Therefore,
+$X\oplus Y$ is independent of $X$.
+
+\medskip
+If $Y$ is known, then
+\[
+P(Z=1\mid Y=0)=P(X=1)=p,\qquad
+P(Z=1\mid Y=1)=1-p.
+\]
+\begin{enumerate}[(i)]
+    \item If $p=1/2$, then $X\oplus Y$ is independent of $Y$.
+    \item If $p\neq1/2$, then $X\oplus Y$ is not independent of $Y$.
+\end{enumerate}
+
+\newpage
+
+\textbf{(c)} For a nonempty subset $J$, we have
+\[
+Y_J=\bigoplus_{j\in J}X_j.
+\]
+Fix all the variables in $Y_J$ except one, $X_j$. Then $Y_J$ is either
+$X_j$ or $1-X_j$. Since $X_j\sim\mathrm{Bern}(1/2)$, it follows that
+$Y_J\sim\mathrm{Bern}(1/2)$.
+
+\medskip
+\Needspace{8\baselineskip}
+Let $J$ and $K$ be two distinct nonempty subsets. After interchanging their
+names if necessary, choose an index $j\in J\setminus K$. Fix all the
+variables except $X_j$. Then $Y_K$ is fixed, while $Y_J$ is either $X_j$
+or $1-X_j$. Since $X_j\sim\mathrm{Bern}(1/2)$, $Y_J$ still has distribution
+$\mathrm{Bern}(1/2)$. Thus, knowing one of $Y_K$ and $Y_J$ does not change
+the distribution of the other, so they are pairwise independent.
+
+\medskip
+\Needspace{4\baselineskip}
+However, they are not mutually independent. Consider $X_1$, $X_2$, and
+$X_3=X_1\oplus X_2$; these variables are dependent.
+
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+Let $X$ be a discrete R.V. whose distinct possible values are $a_1, a_2,...,a_n,$ with probabilities $p_1, p_2 ...,p_n,$ respectively (so $p_1 + p_2 + \cdots + p_n = 1$). The entropy of $X$ is defined to be the average surprise of learning the value of $X$:
+\begin{equation*}
+    H(X)=\sum_{j=1}^np_j\log_2(1/p_j).
+\end{equation*}
+Show that the maximum entropy for $X$ is when
+its distribution is uniform over $a_1, a_2,...,a_n,$ i.e., $p_j = 1/n, \forall j$.
+
+\solution
+Assume $p_j>0$. For the concave function $f(x)=\log_2 x$, Jensen's
+inequality gives
+\[
+\sum_{i=1}^{n}a_i f(x_i)
+\leq f\left(\sum_{i=1}^{n}a_i x_i\right).
+\]
+Therefore,
+\[
+H(X)=\sum_{j=1}^{n}p_j\log_2\left(\frac1{p_j}\right)
+\leq\log_2\left(\sum_{j=1}^{n}p_j\frac1{p_j}\right)
+=\log_2 n.
+\]
+Equality holds if and only if
+\[
+p_j=\frac1n,\qquad \forall j.
+\]
+
+\end{homeworkProblem}
+
+\end{document}

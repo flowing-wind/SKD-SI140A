@@ -1,0 +1,217 @@
+% !TeX TS-program = pdflatex
+
+\documentclass[a4paper]{article}
+
+% \usepackage[default]{fontsetup}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+\usepackage{enumerate}
+\usepackage{tikz}
+
+\usetikzlibrary{automata,positioning}
+
+%
+% Basic Document Settings
+%  
+
+\topmargin=-0.2in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.5in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass : \hmwkTitle}
+\rhead{\firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+
+%
+% Create Problem Sections
+%
+
+%修改下标的地方
+%\newcommand{\enterProblemHeader}[1]{
+	%	\nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+	%	\nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+	%}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Problem \arabic{#1} }{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+	\stepcounter{#1}
+	\nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\newcommand*\circled[1]{\tikz[baseline=(char.base)]{
+		\node[shape=circle,draw,inner sep=2pt] (char) {#1};}}
+
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+
+\newenvironment{homeworkProblem}[1][-1]{
+	\ifnum#1>0
+	\setcounter{homeworkProblemCounter}{#1}
+	\fi
+	\section{Problem \arabic{homeworkProblemCounter} }
+	\setcounter{partCounter}{1}
+	% \enterProblemHeader{homeworkProblemCounter} % 注释掉未定义的命令
+}{
+	\exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Class
+%   - Due date
+%   - Name
+%   - Student ID
+
+\newcommand{\hmwkTitle}{Homework\ \#04}
+\newcommand{\hmwkClass}{Probability \& Statistics for EECS}
+\newcommand{\hmwkDueDate}{2026-10-20}
+\newcommand{\hmwkAuthorName}{}
+\newcommand{\hmwkAuthorID}{}
+
+
+%
+% Title Page
+%
+
+\title{
+	\vspace{2in}
+	\textmd{\textbf{\hmwkClass:\\  \hmwkTitle}}\\
+	\normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at 23:59}\\
+	\vspace{4in}
+}
+
+\author{
+	Name: \textbf{\hmwkAuthorName} \\
+	Student ID: \hmwkAuthorID}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+% Alias for the Solution section header
+\newcommand{\solution}{\textbf{\large Solution}}
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\E}{\mathrm{E}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+
+\begin{document}
+	
+	
+	% \maketitle
+	% \thispagestyle{empty}
+	% \pagebreak
+	
+	\date{
+		Due on Oct. 27, 2026, 18:00 UTC+8}
+	\title{SI 140A-01  Probability \& Statistics for EECS, Fall 2026 \\
+		Homework 4}
+	\maketitle
+	Read all the instructions below carefully before you start working on the assignment, and before you make a submission.
+	\begin{itemize}
+		\item You are required to write down all the major steps towards making your conclusions; otherwise you may obtain limited points of the problem.
+		\item Write your homework in English; otherwise you will get no points of this homework.
+		\item Any form of plagiarism will lead to $0$ point of this homework. 
+	\end{itemize}
+	
+	
+	
+	\newpage
+  
+	\begin{homeworkProblem}
+	A book has $n$ typos. Two proofreaders, Prue and Frida, independently read the book.
+Prue catches each typo with probability $p_1$ and misses it with probability $q_1 = 1-p_1$, independently, and likewise for Frida, who has probabilities $p_2$ of catching and $q_2=1-p_2$ of missing each typo. Let $X_1$ be the number of typos caught by Prue, $X_2$ be the number caught by Frida, and $X$ be the number caught by at least one of the two proofreaders.
+\begin{enumerate}
+    \item[(a)] Find the distribution of $X$.
+    \item[(b)] For this part only, assume that $p_1 = p_2$. Find the conditional distribution of $X_1$ given that $X_1 + X_2 = t$.
+\end{enumerate}
+
+
+   
+		
+	\end{homeworkProblem}
+	
+	\newpage
+	\begin{homeworkProblem}
+		    Let $X$ be a random day of the week, coded so that Monday is $1$, Tuesday is $2$, \textit{etc}. (so $X$ takes values $1, 2, \dots, 7$ with equal probabilities).
+    Let $Y$ be the next day after $X$.
+    Do $X$ and $Y$ have the same distribution?
+    What is $P(X < Y)$?\\
+
+	\end{homeworkProblem}
+	
+	
+	\newpage
+	\begin{homeworkProblem}
+	 For $X$ and $Y$ binary digits (0 or 1), let $X \oplus Y$ be 0 if $X=Y$ and 1 if $X\neq Y$ (this operation is called exclusive or (often abbreviated to XOR), or addition mod 2).
+\begin{enumerate}[(a)]
+    \item  Let $X \sim {\rm Bern}(p)$ and $Y \sim {\rm Bern}(1/2)$, independently. What is the distribution of $X \oplus Y$?
+    \item With notation as in sub-problem (a), is $X \oplus Y$ independent of $X$?  Is $X \oplus Y$ independent of $Y$?  Be sure to consider both the case $p= 1/2$ and the case $p\neq 1/2$.
+    \item Let $X_1, ... ,X_n$ be i.i.d. (i.e., independent and identically distributed) Bern(1/2) R.V.s. For each nonempty subset $J$ of $\{1,2,...,n\}$, let
+    \begin{equation*}
+        Y_J=\oplus_{j \in J}X_j.
+    \end{equation*}
+    
+    Show that $Y_J \sim {\rm Bern}(1/2)$ and that these $2^n-1$ R.V.s are pairwise independent, but not independent.
+\end{enumerate}
+\end{homeworkProblem}
+
+
+\newpage
+\begin{homeworkProblem} 
+Let $X$ be a discrete R.V. whose distinct possible values are $a_1, a_2,...,a_n,$ with probabilities $p_1, p_2 ...,p_n,$ respectively (so $p_1 + p_2 + \cdots + p_n = 1$). The entropy of $X$ is defined to be the average surprise of learning the value of $X$:
+\begin{equation*}
+    H(X)=\sum_{j=1}^np_j\log_2(1/p_j).
+\end{equation*}
+Show that the maximum entropy for $X$ is when
+its distribution is uniform over $a_1, a_2,...,a_n,$ i.e., $p_j = 1/n, \forall j$.
+\end{homeworkProblem}
+
+	
+\end{document}
