@@ -1,0 +1,318 @@
+% !TeX program = xelatex
+% Compile with XeLaTeX in Overleaf.
+
+\documentclass[a4paper]{article}
+\usepackage{xeCJK}
+\setCJKmainfont[BoldFont=FandolSong-Bold.otf]{FandolSong-Regular.otf}
+\usepackage{needspace}
+
+% \usepackage[default]{fontsetup}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+\usepackage{enumerate}
+\usepackage{tikz}
+
+\usetikzlibrary{automata,positioning}
+
+%
+% Basic Document Settings
+%
+
+\topmargin=-0.2in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.5in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{}
+\chead{\hmwkClass : \hmwkTitle}
+\rhead{\firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Problem \arabic{#1} }{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\newcommand*\circled[1]{\tikz[baseline=(char.base)]{
+    \node[shape=circle,draw,inner sep=2pt] (char) {#1};}}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Problem \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%
+
+\newcommand{\hmwkTitle}{Homework\ \#05}
+\newcommand{\hmwkClass}{Probability \& Statistics for EECS}
+\newcommand{\hmwkDueDate}{2026-11-3}
+\newcommand{\hmwkAuthorName}{杨涵}
+\newcommand{\hmwkAuthorID}{2025531064}
+
+%
+% Title Page
+%
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass:\\ \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at 18:00}\\
+    \vspace{4in}
+}
+
+\author{
+    Name: \textbf{\hmwkAuthorName} \\
+    Student ID: \hmwkAuthorID}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+\newcommand{\dx}{\mathrm{d}x}
+\newcommand{\solution}{\par\addvspace{\baselineskip}\Needspace{4\baselineskip}\noindent\textbf{\large Solution}\par\nobreak\smallskip}
+\newcommand{\E}{\mathrm{E}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+
+\begin{document}
+
+\date{
+    Due on Nov. 3, 2026, 18:00 UTC+8}
+\title{SI 140A-01  Probability \& Statistics for EECS, Fall 2026 \\
+    Homework 5}
+\maketitle
+Read all the instructions below carefully before you start working on the assignment, and before you make a submission.
+\begin{itemize}
+    \item You are required to write down all the major steps towards making your conclusions; otherwise you may obtain limited points of the problem.
+    \item Write your homework in English; otherwise you will get no points of this homework.
+    \item Any form of plagiarism will lead to $0$ point of this homework.
+\end{itemize}
+
+\newpage
+
+\begin{homeworkProblem}
+If $X \sim \text{HGeom}(w,b,n)$, what is the distribution of $n-X$? Give a short proof.
+
+\solution
+Since $X\sim\mathrm{HGeom}(w,b,n)$,
+\[
+P(X=k)=\frac{\binom{w}{k}\binom{b}{n-k}}{\binom{w+b}{n}}.
+\]
+Let $Y=n-X$. Then $X=n-Y$, so
+\[
+P(Y=k)=P(X=n-k)
+=\frac{\binom{w}{n-k}\binom{b}{k}}{\binom{w+b}{n}},
+\qquad \max(0,n-w)\leq k\leq\min(n,b).
+\]
+Therefore,
+\[
+n-X\sim\mathrm{HGeom}(b,w,n).
+\]
+
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+A particular Youtuber is known for his arbitrary steak-eating habit during live streaming.
+In each live streaming day, he orders a steak with doneness as one of well done, medium well, medium, medium rare, and rare (with equal probability, independent of other live streaming days).
+How many days of live streaming do you expect to watch before you see him eating steaks with each possible doneness at least one once (suppose you are a big fan who watches every live streaming)?
+
+\solution
+After seeing $i-1$ distinct levels of doneness, let $W_i$ be the number of
+additional days needed to see a new level, including the day on which it
+appears. The total number of days is
+\[
+T=W_1+W_2+W_3+W_4+W_5.
+\]
+
+For independent trials with success probability $p$, let $W$ count the
+trials up to and including the first success. Then
+\[
+P(W=t)=(1-p)^{t-1}p,\qquad t=1,2,3,\dots.
+\]
+To find its expectation, write $q=1-p$. Differentiating the geometric series
+gives
+\[
+\sum_{t=0}^{\infty}q^t=\frac1{1-q}
+\quad\Longrightarrow\quad
+\sum_{t=1}^{\infty}tq^{t-1}=\frac1{(1-q)^2},
+\qquad 0\leq q<1.
+\]
+Hence,
+\[
+\E[W]=\sum_{t=1}^{\infty}t(1-p)^{t-1}p
+=\frac{p}{(1-q)^2}=\frac1p.
+\]
+
+For $W_i$, the probability of seeing a new level is
+\[
+p_i=\frac{5-(i-1)}5=\frac{6-i}5,
+\qquad \E[W_i]=\frac5{6-i},\qquad i=1,\dots,5.
+\]
+By linearity of expectation,
+\begin{align*}
+\E[T]
+&=\E[W_1]+\E[W_2]+\E[W_3]+\E[W_4]+\E[W_5]\\
+&=1+\frac54+\frac53+\frac52+5\\
+&=6+\frac{15+20+30}{12}
+=\frac{137}{12}\approx11.42\text{ days}.
+\end{align*}
+
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+Mario and Zelda are independently performing independent Bernoulli trials.
+For concreteness, assume that Mario is flipping a nickel with probability $p_{1}$ of Heads and Zelda is flipping a penny with probability $p_2$ of Heads.
+Let $X_{1}, X_{2}, \cdots $ be Mario's results and $Y_{1}, Y_{2}, \cdots $ be Zelda's results, with $X_{i} \sim \text{Bern}(p_{1})$ and $Y_{j} \sim \text{Bern}(p_{2})$.
+
+\begin{enumerate}[(a)]
+    \item Find the distribution and expected value of the first time at which they are simultaneously successful, \textit{i.e.}, the smallest $n$ such that $X_{n} = Y_{n} = 1$.
+    \item Find the expected time until at least one has a success (including the success).
+    \item For $p_{1} = p_{2}$, find the probability that their first successes are simultaneous, and use this to find the probability that Mario's first success precedes Zelda's.
+\end{enumerate}
+
+\solution
+\textbf{(a)} Let $T$ be the first trial on which Mario and Zelda are
+simultaneously successful. By independence, the probability of simultaneous
+success in each trial is $p_1p_2$. Thus,
+\[
+P(T=n)=(1-p_1p_2)^{n-1}p_1p_2,
+\qquad n=1,2,3,\dots.
+\]
+So $T$ has a geometric distribution on $\{1,2,3,\dots\}$ with success
+probability $p_1p_2$. Using the expectation derived in Problem 2,
+\[
+\E[T]=\frac1{p_1p_2}.
+\]
+
+\medskip
+\Needspace{9\baselineskip}
+\textbf{(b)} The probability that both fail in a trial is
+\[
+q=(1-p_1)(1-p_2).
+\]
+Let $S$ be the first trial on which at least one succeeds. Its success
+probability is $1-q$, so
+\[
+\E[S]=\frac1{1-q}=\frac1{p_1+p_2-p_1p_2}.
+\]
+
+\medskip
+\Needspace{17\baselineskip}
+\textbf{(c)} Let $p_1=p_2=p$, and let $M$ be the event that their first
+successes are simultaneous. For this to happen on trial $n$, both must fail
+in the first $n-1$ trials and both succeed on trial $n$. Therefore,
+\begin{align*}
+P(M)
+&=\sum_{n=1}^{\infty}\bigl[(1-p)^2\bigr]^{n-1}p^2\\
+&=p^2\bigl[1+(1-p)^2+(1-p)^4+\cdots\bigr]\\
+&=\frac{p^2}{1-(1-p)^2}
+=\frac{p^2}{p(2-p)}=\frac{p}{2-p}.
+\end{align*}
+By symmetry, Mario and Zelda are equally likely to have the earlier first
+success. Let $p'$ be the probability that Mario's first success precedes
+Zelda's. Then
+\[
+2p'+P(M)=1,
+\qquad
+p'=\frac12\left(1-\frac{p}{2-p}\right)=\frac{1-p}{2-p}.
+\]
+
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+Show that for any events $A_1,\dots,A_n$,
+\[
+P(A_1 \cap A_2 \cap \cdots \cap A_n) \ge \sum_{j=1}^n P(A_j) - n + 1.
+\]
+
+Hint: First prove a similar statement about indicator r.v.s, by interpreting what the events $I(A_1 \cap A_2 \cdots \cap A_n)=1$ and $I(A_1 \cap A_2 \cdots \cap A_n)=0$ mean.
+
+\solution
+For any event $A$, define its indicator by
+\[
+I(A)=
+\begin{cases}
+1, & \text{if }A\text{ occurs},\\
+0, & \text{if }A\text{ does not occur}.
+\end{cases}
+\]
+First, we prove that
+\[
+I(A_1\cap\cdots\cap A_n)
+\geq\sum_{j=1}^{n}I(A_j)-n+1.
+\]
+\begin{enumerate}[(i)]
+    \item If all the events occur, the left-hand side is $1$ and the
+    right-hand side is $n-n+1=1$.
+    \item If at least one event does not occur, the left-hand side is $0$
+    and $\sum_{j=1}^{n}I(A_j)\leq n-1$. Thus, the right-hand side is at
+    most $0$, so the inequality also holds.
+\end{enumerate}
+Taking expectations on both sides gives
+\begin{align*}
+\E[I(A_1\cap\cdots\cap A_n)]
+&\geq\E\left[\sum_{j=1}^{n}I(A_j)-n+1\right]\\
+&=\sum_{j=1}^{n}\E[I(A_j)]-n+1.
+\end{align*}
+Since $\E[I(A)]=P(A)$, we obtain
+\[
+P(A_1\cap\cdots\cap A_n)
+\geq\sum_{j=1}^{n}P(A_j)-n+1.
+\]
+
+\end{homeworkProblem}
+
+\end{document}

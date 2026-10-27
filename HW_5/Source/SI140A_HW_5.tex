@@ -1,0 +1,217 @@
+% !TeX TS-program = pdflatex
+
+\documentclass[a4paper]{article}
+
+% \usepackage[default]{fontsetup}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+\usepackage{enumerate}
+\usepackage{tikz}
+
+\usetikzlibrary{automata,positioning}
+
+%
+% Basic Document Settings
+%  
+
+\topmargin=-0.2in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.5in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass : \hmwkTitle}
+\rhead{\firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+
+%
+% Create Problem Sections
+%
+
+%修改下标的地方
+%\newcommand{\enterProblemHeader}[1]{
+	%	\nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+	%	\nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+	%}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Problem \arabic{#1} }{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+	\stepcounter{#1}
+	\nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\newcommand*\circled[1]{\tikz[baseline=(char.base)]{
+		\node[shape=circle,draw,inner sep=2pt] (char) {#1};}}
+
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+
+\newenvironment{homeworkProblem}[1][-1]{
+	\ifnum#1>0
+	\setcounter{homeworkProblemCounter}{#1}
+	\fi
+	\section{Problem \arabic{homeworkProblemCounter} }
+	\setcounter{partCounter}{1}
+	% \enterProblemHeader{homeworkProblemCounter} % 注释掉未定义的命令
+}{
+	\exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Class
+%   - Due date
+%   - Name
+%   - Student ID
+
+\newcommand{\hmwkTitle}{Homework\ \#05}
+\newcommand{\hmwkClass}{Probability \& Statistics for EECS}
+\newcommand{\hmwkDueDate}{2026-11-3}
+\newcommand{\hmwkAuthorName}{}
+\newcommand{\hmwkAuthorID}{}
+
+
+%
+% Title Page
+%
+
+\title{
+	\vspace{2in}
+	\textmd{\textbf{\hmwkClass:\\  \hmwkTitle}}\\
+	\normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at 23:59}\\
+	\vspace{4in}
+}
+
+\author{
+	Name: \textbf{\hmwkAuthorName} \\
+	Student ID: \hmwkAuthorID}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+% Alias for the Solution section header
+\newcommand{\solution}{\textbf{\large Solution}}
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\E}{\mathrm{E}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+
+\begin{document}
+	
+	
+	% \maketitle
+	% \thispagestyle{empty}
+	% \pagebreak
+	
+	\date{
+		Due on Nov. 3, 2026, 18:00 UTC+8}
+	\title{SI 140A-01  Probability \& Statistics for EECS, Fall 2026 \\
+		Homework 5}
+	\maketitle
+	Read all the instructions below carefully before you start working on the assignment, and before you make a submission.
+	\begin{itemize}
+		\item You are required to write down all the major steps towards making your conclusions; otherwise you may obtain limited points of the problem.
+		\item Write your homework in English; otherwise you will get no points of this homework.
+		\item Any form of plagiarism will lead to $0$ point of this homework. 
+	\end{itemize}
+	
+	
+	
+	\newpage
+  
+	\begin{homeworkProblem}
+	 If $X \sim \text{HGeom}(w,b,n)$, what is the distribution of $n-X$? Give a short proof.
+
+
+
+   
+		
+	\end{homeworkProblem}
+	
+	\newpage
+	\begin{homeworkProblem}
+		     A particular Youtuber is known for his arbitrary steak-eating habit during live streaming.
+    In each live streaming day, he orders a steak with doneness as one of well done, medium well, medium, medium rare, and rare (with equal probability, independent of other live streaming days).
+    How many days of live streaming do you expect to watch before you see him eating steaks with each possible doneness at least one once (suppose you are a big fan who watches every live streaming)?
+
+	\end{homeworkProblem}
+	
+	
+	\newpage
+	\begin{homeworkProblem}
+	  Mario and Zelda are independently performing independent Bernoulli trials.
+    For concreteness, assume that Mario is flipping a nickel with probability $p_{1}$ of Heads and Zelda is flipping a penny with probability $p_2$ of Heads.
+    Let $X_{1}, X_{2}, \cdots $ be Mario's results and $Y_{1}, Y_{2}, \cdots $ be Zelda's results, with $X_{i} \sim \text{Bern}(p_{1})$ and $Y_{j} \sim \text{Bern}(p_{2})$.
+    
+    \begin{enumerate}[(a)]
+        \item
+        Find the distribution and expected value of the first time at which they are simultaneously successful, \textit{i.e.}, the smallest $n$ such that $X_{n} = Y_{n} = 1$.
+        
+        \item
+        Find the expected time until at least one has a success (including the success).
+        
+        \item
+        For $p_{1} = p_{2}$, find the probability that their first successes are simultaneous, and use this to find the probability that Mario's first success precedes Zelda's.
+    \end{enumerate}
+
+\end{homeworkProblem}
+
+
+\newpage
+\begin{homeworkProblem} 
+Show that for any events $A_1,\dots,A_n$,
+\[
+P(A_1 \cap A_2 \cap \cdots \cap A_n) \ge \sum_{j=1}^n P(A_j) - n + 1.
+\]
+
+Hint: First prove a similar statement about indicator r.v.s, by interpreting what the events $I(A_1 \cap A_2 \cdots \cap A_n)=1$ and $I(A_1 \cap A_2 \cdots \cap A_n)=0$ mean.
+
+\end{homeworkProblem}
+
+	
+\end{document}
