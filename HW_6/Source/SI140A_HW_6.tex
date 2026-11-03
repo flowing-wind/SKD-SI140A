@@ -1,0 +1,250 @@
+% !TeX TS-program = pdflatex
+
+\documentclass[a4paper]{article}
+
+% \usepackage[default]{fontsetup}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+\usepackage{enumerate}
+\usepackage{tikz}
+
+\usetikzlibrary{automata,positioning}
+
+%
+% Basic Document Settings
+%  
+
+\topmargin=-0.2in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.5in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass : \hmwkTitle}
+\rhead{\firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+
+%
+% Create Problem Sections
+%
+
+%修改下标的地方
+%\newcommand{\enterProblemHeader}[1]{
+	%	\nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+	%	\nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+	%}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Problem \arabic{#1} }{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+	\stepcounter{#1}
+	\nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\newcommand*\circled[1]{\tikz[baseline=(char.base)]{
+		\node[shape=circle,draw,inner sep=2pt] (char) {#1};}}
+
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+
+\newenvironment{homeworkProblem}[1][-1]{
+	\ifnum#1>0
+	\setcounter{homeworkProblemCounter}{#1}
+	\fi
+	\section{Problem \arabic{homeworkProblemCounter} }
+	\setcounter{partCounter}{1}
+	% \enterProblemHeader{homeworkProblemCounter} % 注释掉未定义的命令
+}{
+	\exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Class
+%   - Due date
+%   - Name
+%   - Student ID
+
+\newcommand{\hmwkTitle}{Homework\ \#06}
+\newcommand{\hmwkClass}{Probability \& Statistics for EECS}
+\newcommand{\hmwkDueDate}{2026-11-10}
+\newcommand{\hmwkAuthorName}{}
+\newcommand{\hmwkAuthorID}{}
+
+
+%
+% Title Page
+%
+
+\title{
+	\vspace{2in}
+	\textmd{\textbf{\hmwkClass:\\  \hmwkTitle}}\\
+	\normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at 23:59}\\
+	\vspace{4in}
+}
+
+\author{
+	Name: \textbf{\hmwkAuthorName} \\
+	Student ID: \hmwkAuthorID}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+% Alias for the Solution section header
+\newcommand{\solution}{\textbf{\large Solution}}
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\E}{\mathrm{E}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+
+\begin{document}
+	
+	
+	% \maketitle
+	% \thispagestyle{empty}
+	% \pagebreak
+	
+	\date{
+		Due on Nov. 10, 2026, 18:00 UTC+8}
+	\title{SI 140A-01  Probability \& Statistics for EECS, Fall 2026 \\
+		Homework 6}
+	\maketitle
+	Read all the instructions below carefully before you start working on the assignment, and before you make a submission.
+	\begin{itemize}
+		\item You are required to write down all the major steps towards making your conclusions; otherwise you may obtain limited points of the problem.
+		\item Write your homework in English; otherwise you will get no points of this homework.
+		\item Any form of plagiarism will lead to $0$ point of this homework. 
+	\end{itemize}
+	
+	
+	
+	\newpage
+  
+	\begin{homeworkProblem}
+	\begin{enumerate}[(a)]
+\item  For $X \sim \text{Pois}(\lambda)$ and any function $g$, derive the relationship between $E[Xg(X)]$ and $E[g(X+1)]$. This is called the Stein-Chen identity for the Poisson. %(Hint: You can consider the LOTUS.)
+\item  Find the moment $E\left(X^{4}\right)$ for $X \sim \operatorname{Pois}(\lambda)$ by using the identity from (a) with the fact that $X$ has mean $\lambda$ and variance $\lambda$.
+\end{enumerate}
+
+
+
+   
+		
+	\end{homeworkProblem}
+	
+	\newpage
+	\begin{homeworkProblem}
+		Alice flips a fair coin $n$ times and Bob flips another fair coin $n+1$ times, resulting in independent $X \sim \operatorname{Bin}(n, \frac{1}{2})$ and $Y \sim \operatorname{Bin}(n+1, \frac{1}{2})$.
+
+(a) Let $V = \min(X,Y)$ be the smaller of $X$ and $Y$, and let $W = \max(X,Y)$ be the larger of $X$ and $Y$. (If $X = Y$, then $V = W = X = Y$.) Find $E(V) + E(W)$.
+
+(b) Show that $P(X < Y) = P(n - X < n + 1 - Y)$.
+
+(c) Compute $P(X < Y)$. Hint: Use (b) and the fact that $X$ and $Y$ are integer-valued.
+
+
+
+
+	\end{homeworkProblem}
+	
+	
+ 
+
+\newpage
+\begin{homeworkProblem} 
+
+Consider two probability distributions
+$P=(0.75,0.25)$ and $Q=(0.5,0.5)$
+over a binary random variable $X\in\{0,1\}$.
+All logarithms are base 2.
+\begin{enumerate}
+    \item[(a)] \textbf{Basic Calculations (5 points)}
+
+    Compute the total variation distance and
+    KL divergence:
+    \begin{align*}
+        d_{\mathrm{TV}}(P,Q)
+        &= \frac{1}{2}\sum_x |P(x)-Q(x)|,\\
+        D_{\mathrm{KL}}(P\|Q)
+        &= \sum_x P(x)\log_2\frac{P(x)}{Q(x)}.
+    \end{align*}
+    Is KL divergence symmetric?
+    Justify your answer.
+
+    \item[(b)] \textbf{Connection to Information Theory
+    (5 points)}
+
+  i)  Compute the entropy $H(P)$ and cross-entropy $H(P,Q)$, which are defined as
+    \begin{align*}
+        H(P) &= -\sum_x P(x)\log_2 P(x),\\
+        H(P,Q) &= -\sum_x P(x)\log_2 Q(x).
+    \end{align*}
+ ii)   Show that
+    \[
+        H(P,Q)-H(P)=D_{\mathrm{KL}}(P\|Q).
+    \]
+    Briefly explain the significance of this
+    identity in lossless data compression.
+
+    \item[(c)] \textbf{Connection to Machine Learning
+    (5 points)}
+
+    Suppose $P$ represents the true label
+    distribution in a binary classification task.
+    Two models predict $Q=(0.5,0.5)$ and
+    $R=(0.95,0.05)$, respectively.
+
+    Compute $D_{\mathrm{KL}}(P\|Q)$ and
+    $D_{\mathrm{KL}}(P\|R)$.
+    Which model has a smaller expected
+    cross-entropy loss? Explain your answer.
+\end{enumerate}
+
+\end{homeworkProblem}
+
+	
+\end{document}

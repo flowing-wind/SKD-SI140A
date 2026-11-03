@@ -1,0 +1,358 @@
+% !TeX program = xelatex
+% Compile with XeLaTeX in Overleaf.
+
+\documentclass[a4paper]{article}
+\usepackage{xeCJK}
+\setCJKmainfont[BoldFont=FandolSong-Bold.otf]{FandolSong-Regular.otf}
+\usepackage{needspace}
+
+% \usepackage[default]{fontsetup}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+\usepackage{enumerate}
+\usepackage{tikz}
+
+\usetikzlibrary{automata,positioning}
+
+%
+% Basic Document Settings
+%  
+
+\topmargin=-0.2in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.5in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{}
+\chead{\hmwkClass : \hmwkTitle}
+\rhead{\firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+
+%
+% Create Problem Sections
+%
+
+%修改下标的地方
+%\newcommand{\enterProblemHeader}[1]{
+	%	\nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+	%	\nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+	%}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Problem \arabic{#1} }{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+	\stepcounter{#1}
+	\nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\newcommand*\circled[1]{\tikz[baseline=(char.base)]{
+		\node[shape=circle,draw,inner sep=2pt] (char) {#1};}}
+
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+
+\newenvironment{homeworkProblem}[1][-1]{
+	\ifnum#1>0
+	\setcounter{homeworkProblemCounter}{#1}
+	\fi
+	\section{Problem \arabic{homeworkProblemCounter} }
+	\setcounter{partCounter}{1}
+	% \enterProblemHeader{homeworkProblemCounter} % 注释掉未定义的命令
+}{
+	\exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Class
+%   - Due date
+%   - Name
+%   - Student ID
+
+\newcommand{\hmwkTitle}{Homework\ \#06}
+\newcommand{\hmwkClass}{Probability \& Statistics for EECS}
+\newcommand{\hmwkDueDate}{2026-11-10}
+\newcommand{\hmwkAuthorName}{杨涵}
+\newcommand{\hmwkAuthorID}{2025531064}
+
+
+%
+% Title Page
+%
+
+\title{
+	\vspace{2in}
+	\textmd{\textbf{\hmwkClass:\\  \hmwkTitle}}\\
+	\normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at 23:59}\\
+	\vspace{4in}
+}
+
+\author{
+	Name: \textbf{\hmwkAuthorName} \\
+	Student ID: \hmwkAuthorID}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+% Alias for the Solution section header
+\newcommand{\solution}{\par\addvspace{\baselineskip}\Needspace{4\baselineskip}\noindent\textbf{\large Solution}\par\nobreak\smallskip}
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\E}{\mathrm{E}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+
+\begin{document}
+	
+	
+	% \maketitle
+	% \thispagestyle{empty}
+	% \pagebreak
+	
+	\date{
+		Due on Nov. 10, 2026, 18:00 UTC+8}
+	\title{SI 140A-01  Probability \& Statistics for EECS, Fall 2026 \\
+		Homework 6}
+	\maketitle
+	Read all the instructions below carefully before you start working on the assignment, and before you make a submission.
+	\begin{itemize}
+		\item You are required to write down all the major steps towards making your conclusions; otherwise you may obtain limited points of the problem.
+		\item Write your homework in English; otherwise you will get no points of this homework.
+		\item Any form of plagiarism will lead to $0$ point of this homework. 
+	\end{itemize}
+	
+	
+	
+	\newpage
+  
+	\begin{homeworkProblem}
+	\begin{enumerate}[(a)]
+\item  For $X \sim \text{Pois}(\lambda)$ and any function $g$, derive the relationship between $E[Xg(X)]$ and $E[g(X+1)]$. This is called the Stein-Chen identity for the Poisson. %(Hint: You can consider the LOTUS.)
+\item  Find the moment $E\left(X^{4}\right)$ for $X \sim \operatorname{Pois}(\lambda)$ by using the identity from (a) with the fact that $X$ has mean $\lambda$ and variance $\lambda$.
+\end{enumerate}
+
+\solution
+\begin{enumerate}[(a)]
+    \item The $k=0$ term in the expectation is zero. Starting the sum at $k=1$ and then shifting the index gives
+    \begin{align*}
+    \E[Xg(X)]
+    &= \sum_{k=1}^{\infty} k g(k)e^{-\lambda}\frac{\lambda^k}{k!}\\
+    &= \lambda\sum_{k=1}^{\infty}g(k)e^{-\lambda}
+       \frac{\lambda^{k-1}}{(k-1)!}\\
+    &= \lambda\sum_{k=0}^{\infty}g(k+1)e^{-\lambda}
+       \frac{\lambda^k}{k!}\\
+    &= \lambda\E[g(X+1)].
+    \end{align*}
+
+    \item Since $\E[X]=\lambda$ and $\Var(X)=\lambda$,
+    \[
+    \E[X^2]=\Var(X)+(\E[X])^2=\lambda+\lambda^2.
+    \]
+    Applying the identity from (a) with $g(x)=x^2$ gives
+    \begin{align*}
+    \E[X^3]
+    &= \lambda\E[(X+1)^2]\\
+    &= \lambda\bigl(\E[X^2]+2\E[X]+1\bigr)\\
+    &= \lambda^3+3\lambda^2+\lambda.
+    \end{align*}
+    Now take $g(x)=x^3$. Then
+    \begin{align*}
+    \E[X^4]
+    &= \lambda\E[(X+1)^3]\\
+    &= \lambda\bigl(\E[X^3]+3\E[X^2]+3\E[X]+1\bigr)\\
+    &= \lambda^4+6\lambda^3+7\lambda^2+\lambda.
+    \end{align*}
+\end{enumerate}
+
+\end{homeworkProblem}
+	
+	\newpage
+	\begin{homeworkProblem}
+		Alice flips a fair coin $n$ times and Bob flips another fair coin $n+1$ times, resulting in independent $X \sim \operatorname{Bin}(n, \frac{1}{2})$ and $Y \sim \operatorname{Bin}(n+1, \frac{1}{2})$.
+
+(a) Let $V = \min(X,Y)$ be the smaller of $X$ and $Y$, and let $W = \max(X,Y)$ be the larger of $X$ and $Y$. (If $X = Y$, then $V = W = X = Y$.) Find $E(V) + E(W)$.
+
+(b) Show that $P(X < Y) = P(n - X < n + 1 - Y)$.
+
+(c) Compute $P(X < Y)$. Hint: Use (b) and the fact that $X$ and $Y$ are integer-valued.
+
+\solution
+\begin{enumerate}[(a)]
+    \item Since $V+W=X+Y$, linearity of expectation gives
+    \[
+    \E[V]+\E[W]=\E[X]+\E[Y]
+    =\frac{n}{2}+\frac{n+1}{2}=n+\frac12.
+    \]
+
+    \item Swapping heads and tails in every flip produces a sequence with the same probability. Under this swap, the head counts $(X,Y)$ become the tail counts $(n-X,n+1-Y)$. Thus the two pairs have the same joint distribution, and
+    \[
+    P(X<Y)=P(n-X<n+1-Y).
+    \]
+
+    \item Rearranging $n-X<n+1-Y$ gives $Y-X<1$. Since $X$ and $Y$ are integer-valued, this is equivalent to $Y-X\leq 0$, or $Y\leq X$. Hence $P(X<Y)=P(Y\leq X)$ by (b). The two events are complementary, so
+    \[
+    P(X<Y)=\frac12.
+    \]
+\end{enumerate}
+
+\end{homeworkProblem}
+	
+	
+ 
+
+\newpage
+\begin{homeworkProblem} 
+
+Consider two probability distributions
+$P=(0.75,0.25)$ and $Q=(0.5,0.5)$
+over a binary random variable $X\in\{0,1\}$.
+All logarithms are base 2.
+\begin{enumerate}
+    \item[(a)] \textbf{Basic Calculations (5 points)}
+
+    Compute the total variation distance and
+    KL divergence:
+    \begin{align*}
+        d_{\mathrm{TV}}(P,Q)
+        &= \frac{1}{2}\sum_x |P(x)-Q(x)|,\\
+        D_{\mathrm{KL}}(P\|Q)
+        &= \sum_x P(x)\log_2\frac{P(x)}{Q(x)}.
+    \end{align*}
+    Is KL divergence symmetric?
+    Justify your answer.
+
+    \item[(b)] \textbf{Connection to Information Theory
+    (5 points)}
+
+    \begin{enumerate}[(i)]
+    \item Compute the entropy $H(P)$ and cross-entropy $H(P,Q)$, which are defined as
+    \begin{align*}
+        H(P) &= -\sum_x P(x)\log_2 P(x),\\
+        H(P,Q) &= -\sum_x P(x)\log_2 Q(x).
+    \end{align*}
+    \item Show that
+    \[
+        H(P,Q)-H(P)=D_{\mathrm{KL}}(P\|Q).
+    \]
+    Briefly explain the significance of this
+    identity in lossless data compression.
+    \end{enumerate}
+
+    \item[(c)] \textbf{Connection to Machine Learning
+    (5 points)}
+
+    Suppose $P$ represents the true label
+    distribution in a binary classification task.
+    Two models predict $Q=(0.5,0.5)$ and
+    $R=(0.95,0.05)$, respectively.
+
+    Compute $D_{\mathrm{KL}}(P\|Q)$ and
+    $D_{\mathrm{KL}}(P\|R)$.
+    Which model has a smaller expected
+    cross-entropy loss? Explain your answer.
+\end{enumerate}
+
+\solution
+\begin{enumerate}[(a)]
+    \item The total variation distance is
+    \[
+    d_{\mathrm{TV}}(P,Q)=\frac12\sum_x |P(x)-Q(x)|
+    =\frac12\bigl(|0.75-0.5|+|0.25-0.5|\bigr)=0.25.
+    \]
+    The KL divergences in the two directions are
+    \begin{align*}
+    D_{\mathrm{KL}}(P\|Q)
+    &= 0.75\log_2\frac{0.75}{0.5}
+       +0.25\log_2\frac{0.25}{0.5}
+       \approx 0.1887\ \text{bits},\\
+    D_{\mathrm{KL}}(Q\|P)
+    &= 0.5\log_2\frac{0.5}{0.75}
+       +0.5\log_2\frac{0.5}{0.25}
+       \approx 0.2075\ \text{bits}.
+    \end{align*}
+    These values differ, so KL divergence is not symmetric.
+
+    \Needspace{10\baselineskip}
+    \item
+    \begin{enumerate}[(i)]
+        \item The entropy and cross-entropy are
+        \begin{align*}
+        H(P)
+        &= -0.75\log_2 0.75-0.25\log_2 0.25
+           \approx 0.8113\ \text{bits},\\
+        H(P,Q)
+        &= -0.75\log_2 0.5-0.25\log_2 0.5
+           =1\ \text{bit}.
+        \end{align*}
+
+        \Needspace{9\baselineskip}
+        \item Subtracting the entropy from the cross-entropy gives
+        \begin{align*}
+        H(P,Q)-H(P)
+        &= -\sum_x P(x)\log_2 Q(x)+\sum_x P(x)\log_2 P(x)\\
+        &= \sum_x P(x)\log_2\frac{P(x)}{Q(x)}
+        =D_{\mathrm{KL}}(P\|Q).
+        \end{align*}
+        In lossless data compression, $D_{\mathrm{KL}}(P\|Q)$ is the extra number of bits per symbol, on average, for ideal coding based on $Q$ when the true source follows $P$, compared with ideal coding based on $P$.
+    \end{enumerate}
+
+    \Needspace{12\baselineskip}
+    \item From (a), $D_{\mathrm{KL}}(P\|Q)\approx 0.1887$ bits. For $R$,
+    \[
+    D_{\mathrm{KL}}(P\|R)
+    =0.75\log_2\frac{0.75}{0.95}
+     +0.25\log_2\frac{0.25}{0.05}
+    \approx 0.3247\ \text{bits}.
+    \]
+    For a model distribution $M$, the expected cross-entropy loss is
+    $H(P,M)=H(P)+D_{\mathrm{KL}}(P\|M)$. Since $H(P,Q)=1$ bit and
+    $H(P,R)\approx 1.136$ bits, the model predicting $Q$ has the smaller expected cross-entropy loss.
+\end{enumerate}
+
+\end{homeworkProblem}
+
+	
+\end{document}
