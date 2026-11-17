@@ -1,0 +1,205 @@
+% !TeX TS-program = pdflatex
+
+
+\documentclass[a4paper]{article}
+
+% \usepackage[default]{fontsetup}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+\usepackage{enumerate}
+\usepackage{tikz}
+
+\usetikzlibrary{automata,positioning}
+
+%
+% Basic Document Settings
+%  
+
+\topmargin=-0.2in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.5in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass : \hmwkTitle}
+\rhead{\firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{
+    \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\newcommand*\circled[1]{\tikz[baseline=(char.base)]{
+		\node[shape=circle,draw,inner sep=2pt] (char) {#1};}}
+
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Problem \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Class
+%   - Due date
+%   - Name
+%   - Student ID
+
+\newcommand{\hmwkTitle}{Homework\ \#07}
+\newcommand{\hmwkClass}{Probability \& Statistics for EECS}
+\newcommand{\hmwkDueDate}{2026-11-24}
+\newcommand{\hmwkAuthorName}{}
+\newcommand{\hmwkAuthorID}{}
+
+
+%
+% Title Page
+%
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass:\\  \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{Due\ on\ Nov. 10, 2025, 23:59 UTC+8}\\
+	\vspace{4in}
+}
+
+\author{
+	Name: \textbf{\hmwkAuthorName} \\
+	Student ID: \hmwkAuthorID}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+% Alias for the Solution section header
+\newcommand{\solution}{\textbf{\large Solution}}
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\E}{\mathrm{E}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+
+\begin{document}
+
+
+% \maketitle
+% \thispagestyle{empty}
+% \pagebreak
+
+\date{
+Due on Nov. 24, 2026, 18:00 UTC+8}
+\title{SI 140A-01  Probability \& Statistics for EECS, Fall 2026 \\
+Homework 7}
+\maketitle
+Read all the instructions below carefully before you start working on the assignment, and before you make a submission.
+\begin{itemize}
+    \item You are required to write down all the major steps towards making your conclusions; otherwise you may obtain limited points of the problem.
+    \item Write your homework in English; otherwise you will get no points of this homework.
+    \item Any form of plagiarism will lead to $0$ point of this homework. 
+\end{itemize}
+\newpage
+
+\begin{homeworkProblem}[1] \textbf{(30pts)}
+Let $U_1,\dots,U_n$ be i.i.d. $\text{Unif}(0,1)$, and $X = \max(U_1,\dots,U_n)$. What is the PDF of $X$? What is $E X$?
+
+\smallskip
+
+Hint: Find the CDF of $X$ first, by translating the event $X \leq x$ into an event involving $U_1,\dots,U_n$
+\end{homeworkProblem}
+\newpage
+
+\begin{homeworkProblem}[2] \textbf{(30pts)}
+Let $Z \sim \mathcal{N}(0,1)$ and let $S$ be a random sign independent of $Z$, i.e., $S$ is $1$ with probability $1/2$ and $-1$ with probability $1/2$. Show that $SZ \sim \mathcal{N}(0,1)$.
+\end{homeworkProblem}
+
+\newpage
+\begin{homeworkProblem}[3] \textbf{(40pts)}
+The \emph{Gumbel distribution} is the distribution of $-\log X$ with $X \sim \text{Expo}(1)$.
+
+\begin{enumerate}
+    \item Find the CDF of the Gumbel distribution.
+    \item Let $X_1, X_2, \dots$ be i.i.d. $\text{Expo}(1)$ and let $M_n = \max(X_1, \dots, X_n)$. Show that $M_n - \log n$ converges in distribution to the Gumbel distribution, i.e., as $n \to \infty$ the CDF of $M_n - \log n$ converges to the Gumbel CDF.
+\end{enumerate}
+\end{homeworkProblem}
+
+\newpage
+\begin{homeworkProblem}[4]\textbf{(optional)}
+Let $Y \sim \mathcal{N}(\mu, 1)$. Use the fact that $P(|Y - \mu| < 1.96\sigma) \approx 0.95$ to construct a random interval $(a(Y), b(Y))$ (that is, an interval whose endpoints are r.v.s), such that the probability that $\mu$ is in the interval is approximately $0.95$. This interval is called a \emph{confidence interval} for $\mu$; such intervals are often desired in statistics when estimating unknown parameters based on data.
+\end{homeworkProblem}
+ 
+ \newpage
+ \begin{homeworkProblem}[5]
+    Let $F$ be a CDF which is continuous and strictly increasing.
+    Let $\mu$ be the mean of the distribution.
+    The quantile function, $F^{-1}$, has many applications in statistics and econometrics. 
+    Show that the area under the curve of the quantile function from $0$ to $1$ is $\mu$.\\
+
+  
+
+\end{homeworkProblem}
+
+
+
+\end{document}

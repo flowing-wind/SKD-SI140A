@@ -1,0 +1,334 @@
+% !TeX program = xelatex
+% Compile with XeLaTeX in Overleaf.
+
+
+\documentclass[a4paper]{article}
+\usepackage{xeCJK}
+\setCJKmainfont[BoldFont=FandolSong-Bold.otf]{FandolSong-Regular.otf}
+\usepackage{needspace}
+
+% \usepackage[default]{fontsetup}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}[=v4] % The homework template uses version 4 marks.
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+\usepackage{enumerate}
+\usepackage{tikz}
+
+\usetikzlibrary{automata,positioning}
+
+%
+% Basic Document Settings
+%  
+
+\topmargin=-0.2in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.5in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{}
+\chead{\hmwkClass : \hmwkTitle}
+\rhead{\firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{
+    \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\newcommand*\circled[1]{\tikz[baseline=(char.base)]{
+		\node[shape=circle,draw,inner sep=2pt] (char) {#1};}}
+
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Problem \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Class
+%   - Due date
+%   - Name
+%   - Student ID
+
+\newcommand{\hmwkTitle}{Homework\ \#07}
+\newcommand{\hmwkClass}{Probability \& Statistics for EECS}
+\newcommand{\hmwkDueDate}{2026-11-24}
+\newcommand{\hmwkAuthorName}{杨涵}
+\newcommand{\hmwkAuthorID}{2025531064}
+
+
+%
+% Title Page
+%
+
+\author{
+	Name: \textbf{\hmwkAuthorName} \\
+	Student ID: \hmwkAuthorID}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+% Alias for the Solution section header
+\newcommand{\solution}{\par\addvspace{\baselineskip}\Needspace{4\baselineskip}\noindent\textbf{\large Solution}\par\nobreak\smallskip}
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\E}{\mathrm{E}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+
+\begin{document}
+
+
+% \maketitle
+% \thispagestyle{empty}
+% \pagebreak
+
+\date{
+Due on Nov. 24, 2026, 18:00 UTC+8}
+\title{SI 140A-01  Probability \& Statistics for EECS, Fall 2026 \\
+Homework 7}
+\maketitle
+Read all the instructions below carefully before you start working on the assignment, and before you make a submission.
+\begin{itemize}
+    \item You are required to write down all the major steps towards making your conclusions; otherwise you may obtain limited points of the problem.
+    \item Write your homework in English; otherwise you will get no points of this homework.
+    \item Any form of plagiarism will lead to $0$ point of this homework. 
+\end{itemize}
+\newpage
+
+\begin{homeworkProblem}[1] \textbf{(30pts)}
+Let $U_1,\dots,U_n$ be i.i.d. $\text{Unif}(0,1)$, and $X = \max(U_1,\dots,U_n)$. What is the PDF of $X$? What is $E X$?
+
+\smallskip
+
+Hint: Find the CDF of $X$ first, by translating the event $X \leq x$ into an event involving $U_1,\dots,U_n$
+
+\solution
+Let $F_X$ be the CDF of $X$. For $0<x<1$, independence gives
+\begin{align*}
+F_X(x)
+&=P(X\leq x)=P(U_1\leq x,\dots,U_n\leq x)\\
+&=\prod_{i=1}^{n}P(U_i\leq x)=x^n.
+\end{align*}
+Since $X$ takes values in $(0,1)$, its CDF is
+\[
+F_X(x)=
+\begin{cases}
+0, & x\leq 0,\\
+x^n, & 0<x<1,\\
+1, & x\geq 1.
+\end{cases}
+\]
+Differentiating on each interval gives the PDF
+\[
+f_X(x)=
+\begin{cases}
+nx^{n-1}, & 0<x<1,\\
+0, & \text{otherwise}.
+\end{cases}
+\]
+The expectation is
+\begin{align*}
+\E[X]
+&=\int_0^1 x f_X(x)\,\dx
+=\int_0^1 x\cdot nx^{n-1}\,\dx\\
+&=n\int_0^1 x^n\,\dx
+=n\left[\frac{x^{n+1}}{n+1}\right]_0^1
+=\frac{n}{n+1}.
+\end{align*}
+\end{homeworkProblem}
+\newpage
+
+\begin{homeworkProblem}[2] \textbf{(30pts)}
+Let $Z \sim \mathcal{N}(0,1)$ and let $S$ be a random sign independent of $Z$, i.e., $S$ is $1$ with probability $1/2$ and $-1$ with probability $1/2$. Show that $SZ \sim \mathcal{N}(0,1)$.
+
+\solution
+Let $\varphi$ and $\Phi$ denote the standard normal PDF and CDF. Then
+\[
+\Phi(x)=P(Z\leq x)=\int_{-\infty}^{x}\varphi(t)\,\mathrm{d}t.
+\]
+By symmetry and continuity of the standard normal distribution,
+\[
+\Phi(-x)=P(Z\leq -x)=P(Z\geq x)=1-\Phi(x).
+\]
+
+Let $Y=SZ$. Conditioning on $S$ gives
+\begin{align*}
+F_Y(x)
+&=P(SZ\leq x)\\
+&=P(SZ\leq x\mid S=1)P(S=1)+P(SZ\leq x\mid S=-1)P(S=-1)\\
+&=\frac12\bigl[P(SZ\leq x\mid S=1)+P(SZ\leq x\mid S=-1)\bigr].
+\end{align*}
+Since $S$ and $Z$ are independent,
+\begin{align*}
+P(SZ\leq x\mid S=1)
+&=P(Z\leq x\mid S=1)=P(Z\leq x)=\Phi(x),\\
+P(SZ\leq x\mid S=-1)
+&=P(-Z\leq x\mid S=-1)=P(Z\geq -x)\\
+&=1-\Phi(-x)=\Phi(x).
+\end{align*}
+Thus $F_Y(x)=\frac12\bigl[\Phi(x)+\Phi(x)\bigr]=\Phi(x)$ for all $x$,
+so $SZ\sim\mathcal{N}(0,1)$.
+\end{homeworkProblem}
+
+\newpage
+\begin{homeworkProblem}[3] \textbf{(40pts)}
+The \emph{Gumbel distribution} is the distribution of $-\log X$ with $X \sim \text{Expo}(1)$.
+
+\begin{enumerate}
+    \item Find the CDF of the Gumbel distribution.
+    \item Let $X_1, X_2, \dots$ be i.i.d. $\text{Expo}(1)$ and let $M_n = \max(X_1, \dots, X_n)$. Show that $M_n - \log n$ converges in distribution to the Gumbel distribution, i.e., as $n \to \infty$ the CDF of $M_n - \log n$ converges to the Gumbel CDF.
+\end{enumerate}
+
+\solution
+For $X\sim\text{Expo}(1)$, the PDF is
+\[
+f_X(t)=
+\begin{cases}
+e^{-t}, & t>0,\\
+0, & t\leq 0.
+\end{cases}
+\]
+For $t>0$, integrating the density gives
+\[
+F_X(t)=P(X\leq t)=\int_0^t e^{-u}\,\mathrm{d}u
+=\left[-e^{-u}\right]_0^t=1-e^{-t}.
+\]
+For $t\leq 0$, $F_X(t)=0$.
+
+\begin{enumerate}[(i)]
+    \item Let $Y=-\log X$. For any $y\in\mathbb{R}$,
+    \begin{align*}
+    F_Y(y)
+    &=P(-\log X\leq y)=P(\log X\geq -y)\\
+    &=P(X\geq e^{-y})=e^{-e^{-y}}.
+    \end{align*}
+
+    \Needspace{11\baselineskip}
+    \item For $t>0$, independence gives
+    \[
+    P(M_n\leq t)=\prod_{i=1}^{n}P(X_i\leq t)=(1-e^{-t})^n.
+    \]
+    For each fixed $y\in\mathbb{R}$, $y+\log n>0$ for all sufficiently large $n$.
+    For those $n$,
+    \begin{align*}
+    P(M_n-\log n\leq y)
+    &=P(M_n\leq y+\log n)\\
+    &=\bigl(1-e^{-(y+\log n)}\bigr)^n
+    =\left(1-\frac{e^{-y}}{n}\right)^n.
+    \end{align*}
+    Taking the limit gives
+    \[
+    \lim_{n\to\infty}\left(1-\frac{e^{-y}}{n}\right)^n=e^{-e^{-y}}.
+    \]
+    Thus the CDF of $M_n-\log n$ converges to the Gumbel CDF at every $y$.
+\end{enumerate}
+\end{homeworkProblem}
+
+\newpage
+\begin{homeworkProblem}[4]\textbf{(optional)}
+Let $Y \sim \mathcal{N}(\mu, 1)$. Use the fact that $P(|Y - \mu| < 1.96\sigma) \approx 0.95$ to construct a random interval $(a(Y), b(Y))$ (that is, an interval whose endpoints are r.v.s), such that the probability that $\mu$ is in the interval is approximately $0.95$. This interval is called a \emph{confidence interval} for $\mu$; such intervals are often desired in statistics when estimating unknown parameters based on data.
+
+\solution
+Since $\sigma^2=1$, we have $\sigma=1$. Rearranging the inequalities gives
+\[
+|Y-\mu|<1.96
+\quad\Longleftrightarrow\quad
+-1.96<Y-\mu<1.96
+\quad\Longleftrightarrow\quad
+Y-1.96<\mu<Y+1.96.
+\]
+Choose $a(Y)=Y-1.96$ and $b(Y)=Y+1.96$. Then
+\[
+P\bigl(a(Y)<\mu<b(Y)\bigr)=P(|Y-\mu|<1.96)\approx 0.95.
+\]
+The resulting confidence interval is $(Y-1.96,Y+1.96)$.
+\end{homeworkProblem}
+ 
+ \newpage
+ \begin{homeworkProblem}[5]
+    Let $F$ be a CDF which is continuous and strictly increasing.
+    Let $\mu$ be the mean of the distribution.
+    The quantile function, $F^{-1}$, has many applications in statistics and econometrics. 
+    Show that the area under the curve of the quantile function from $0$ to $1$ is $\mu$.
+
+\solution
+Let $U\sim\text{Unif}(0,1)$ and define $Y=F^{-1}(U)$. Since $F$ is continuous
+and strictly increasing,
+\[
+P(Y\leq y)=P(F^{-1}(U)\leq y)=P(U\leq F(y))=F(y).
+\]
+Thus $Y$ has CDF $F$ and $\E[Y]=\mu$. Also, using the uniform density $f_U$,
+\[
+\E[Y]=\E[F^{-1}(U)]
+=\int_0^1 F^{-1}(u)f_U(u)\,\mathrm{d}u
+=\int_0^1 F^{-1}(u)\,\mathrm{d}u.
+\]
+Therefore $\int_0^1 F^{-1}(u)\,\mathrm{d}u=\mu$.
+\end{homeworkProblem}
+
+
+
+\end{document}
